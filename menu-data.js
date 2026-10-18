@@ -282,24 +282,24 @@ window.ROLLWERK_MENU = {
       "id": "drink-1-1",
       "category": 0,
       "name": "Fassbier (0,5 l)",
-      "price": "€ 4,90"
+      "price": "€ 4,50"
     },
     {
       "id": "drink-1-2",
       "category": 0,
-      "name": "Fassbier (0,33 l)",
-      "price": "€ 3,20"
+      "name": "Fassbier (0,3 l)",
+      "price": "€ 3,00"
     },
     {
       "id": "drink-1-3",
       "category": 0,
-      "name": "Efes (Flasche)",
+      "name": "Efes (Flasche, 0,33 l)",
       "price": "€ 3,40"
     },
     {
       "id": "drink-2-1",
       "category": 1,
-      "name": "Benediktiner Hell Alkoholfrei (Flasche)",
+      "name": "Benediktiner Hell Alkoholfrei (Flasche, 0,33 l)",
       "price": "€ 3,40"
     },
     {
