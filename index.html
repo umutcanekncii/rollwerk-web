@@ -11,9 +11,9 @@
 <!-- WhatsApp ve Sosyal Medya Paylaşım Önizlemesi -->
 <meta content="website" property="og:type"/>
 <meta content="ROLLWERK · Wraps &amp; Falafel Weimar" property="og:title"/>
-<meta content="Rolli, Falafel, taze salatalar ve ev yapımı soslar. Frauenplan 9, Weimar." property="og:description"/>
-<meta content="images/RW_Logo.png" property="og:image"/>
-<meta content="https://rollwerk-weimar.de" property="og:url"/>
+<meta content="Rolli, Falafel, frische Salate und hausgemachte Saucen. Frauenplan 9, Weimar." property="og:description"/>
+<meta content="https://www.rollwerk-weimar.de/images/RW_Logo.png" property="og:image"/>
+<meta content="https://www.rollwerk-weimar.de" property="og:url"/>
 <!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
 <!-- Fontlar -->
@@ -91,6 +91,48 @@
         .dark-map-iframe {
             filter: invert(90%) hue-rotate(180deg) contrast(115%) brightness(85%);
         }
+
+        /* ROLLWERK design revision: headings, navigation and local magnification. */
+        #menu .rw-menu-title { font-size: clamp(2.85rem, 5.5vw, 4.9rem); line-height: 1.02; }
+        #menu .rw-category-title { font-size: clamp(1.9rem, 3.4vw, 3.15rem); line-height: 1.05; overflow-wrap: anywhere; }
+        #menu .rw-category-title, #menu .rw-menu-title { color: #F5F2EB; }
+        .rw-logo-hover { display: inline-block; }
+        .rw-drinks-subtitle { font-size: clamp(1.3rem, 2.1vw, 1.75rem); line-height: 1.08; }
+        .rw-gallery-title { font-size: clamp(3.2rem, 6vw, 5.5rem); line-height: 1; }
+        .rw-tagline-word { display: inline-block; }
+        #menu [data-menu-price] { font-size: 1.08rem; line-height: 1.15; }
+        #menu [data-menu-price] > span { font-size: inherit; }
+        #menu [data-menu-price] > span + span { font-size: .82em; margin-top: .18rem; }
+        @media (min-width: 768px) {
+            #menu [data-menu-price] { font-size: clamp(1.12rem, 1.25vw, 1.35rem); }
+            #dish-modal .rw-dish-modal-panel {
+                width: min(92vw, 72rem);
+                max-width: 72rem;
+                min-height: min(68vh, 650px);
+                max-height: calc(100vh - 3rem);
+            }
+            #dish-modal-title { font-size: clamp(1.8rem, 2.3vw, 2.5rem); }
+            #dish-modal-price { font-size: clamp(1.45rem, 1.8vw, 1.9rem); }
+            #dish-modal-desc, #dish-modal-options { font-size: .9rem; line-height: 1.65; }
+            #dish-modal-allergens { font-size: .75rem; line-height: 1.45; }
+        }
+        @media (min-width: 768px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+            .rw-desktop-nav > a { position: relative; display: inline-block; transition: color 180ms ease, opacity 180ms ease, transform 180ms ease; }
+            .rw-desktop-nav > a::after { content: ''; position: absolute; left: 0; right: 0; bottom: -5px; height: 1px; background: #C35A38; transform: scaleX(0); transition: transform 180ms ease; }
+            .rw-desktop-nav:has(> a:hover) > a:not(:hover) { opacity: .50; }
+            .rw-desktop-nav > a:hover, .rw-desktop-nav > a:focus-visible { color: #C35A38; transform: scale(1.13); opacity: 1; }
+            .rw-desktop-nav > a:hover::after, .rw-desktop-nav > a:focus-visible::after { transform: scaleX(1); }
+            #rw-hero-title .rw-letter { display: inline-block; position: relative; vertical-align: baseline; }
+            #rw-hero-title .rw-letter-inner { display: inline-block; transform-origin: center 70%; transition: transform 180ms ease-out; }
+            .rw-logo-hover { transition: transform 200ms ease-out; }
+            .rw-logo-hover:hover { transform: translateY(-3px) scale(1.10); }
+            .rw-tagline-word { transition: color 180ms ease, transform 180ms ease, text-shadow 180ms ease; transform-origin: center; }
+            .rw-tagline-word:hover { color: #F5F2EB; transform: translateY(-2px) scale(1.16); text-shadow: 0 0 14px rgba(245,242,235,.38); }
+        }
+        @media (prefers-reduced-motion: no-preference) {
+            #rw-hero-title { animation: rw-title-entrance 450ms ease-out both; }
+            @keyframes rw-title-entrance { from { opacity: .85; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        }
     </style>
 </head>
 <body class="bg-[#1C1C1C] text-[#EAE6DF] font-body selection:bg-[#C35A38] selection:text-white antialiased overflow-x-hidden">
@@ -101,7 +143,7 @@
                 ROLLWERK
             </a>
 <!-- Masaüstü Linkleri -->
-<nav class="hidden md:flex justify-center items-center gap-6 lg:gap-10 text-xs sm:text-sm font-semibold tracking-widest uppercase text-neutral-300 mx-auto">
+<nav class="rw-desktop-nav hidden md:flex justify-center items-center gap-6 lg:gap-10 text-xs sm:text-sm font-semibold tracking-widest uppercase text-neutral-300 mx-auto">
 <a class="hover:text-[#C35A38] transition-colors" href="#home">STARTSEITE</a>
 <a class="hover:text-[#C35A38] transition-colors" href="#menu">SPEISEKARTE</a>
 <a class="hover:text-[#C35A38] transition-colors" href="#our-place">UNSER LADEN</a>
@@ -146,14 +188,14 @@
 </header>
 <!-- 2. Hero Bölümü -->
 <section class="relative w-full min-h-screen flex flex-col items-center justify-center text-center px-4 pt-16 overflow-hidden bg-[#1C1C1C]" id="home">
-<video autoplay="" class="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none" loop="" muted="" playsinline="">
+<video autoplay="" class="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none" loop="" muted="" playsinline="" preload="auto" poster="images/menu_rind_tantuni.jpg">
 <source src="videos/acilis_video.mp4" type="video/mp4"/>
 </video>
 <div class="absolute inset-0 bg-black/55 z-0"></div>
 <div class="relative z-10 flex flex-col items-center max-w-4xl mx-auto w-full">
 <div class="relative inline-block mx-auto max-w-full">
 <!-- Başlık için duvar derinliği gölgesi eklendi -->
-<h1 class="font-brand text-6xl sm:text-8xl md:text-9xl lg:text-[11rem] font-extrabold tracking-wide text-[#F5F2EB] uppercase leading-none">
+<h1 id="rw-hero-title" class="font-brand text-6xl sm:text-8xl md:text-9xl lg:text-[11rem] font-extrabold tracking-wide text-[#F5F2EB] uppercase leading-none">
                     ROLLWERK
                 </h1>
 <a class="absolute right-0 sm:right-1 -bottom-5 sm:-bottom-7 hover:text-white text-[#D8926B] transition-colors p-1" href="https://www.instagram.com/rollwerkweimar/" rel="noopener noreferrer" target="_blank" title="Instagram">
@@ -164,11 +206,11 @@
 </div>
 <!-- text-flicker-glow efekti uygulandı -->
 <div class="text-flicker-glow mt-4 text-xl sm:text-2xl md:text-3xl tracking-[0.2em] sm:tracking-[0.25em] text-[#D8926B] uppercase font-bold">
-                FRISCH · BUNT · ECHT
+                <span class="rw-tagline-word">FRISCH</span><span aria-hidden="true"> · </span><span class="rw-tagline-word">BUNT</span><span aria-hidden="true"> · </span><span class="rw-tagline-word">ECHT</span>
             </div>
 <!-- Logoya jello animasyonu ve duvar gölgesi uygulandı -->
 <div class="mt-6 flex flex-col items-center">
-<img alt="ROLLWERK Weimar" class="jello-horizontal h-28 sm:h-36 w-auto object-contain cursor-pointer" src="images/RW_Logo.png"/>
+<span class="rw-logo-hover"><img alt="ROLLWERK Weimar" class="jello-horizontal h-28 sm:h-36 w-auto object-contain cursor-pointer" src="images/RW_Logo.png"/></span>
 <p class="font-script text-2xl sm:text-3xl tracking-wide text-[#F5F2EB] mt-1 drop-shadow">
                     Wraps &amp; Falafel
                 </p>
@@ -197,14 +239,14 @@
 <span class="hidden md:inline text-neutral-600">|</span>
 <span>Montag bis Sonntag: 11:00 bis 20:00 Uhr</span>
 <span class="hidden md:inline text-neutral-600">|</span>
-<span class="bg-[#C35A38]/20 border border-[#C35A38] text-[#E5A682] px-3 py-1 rounded-full text-[11px] font-semibold uppercase tracking-wider">
+<span class="text-[#E5A682] text-[11px] font-semibold uppercase tracking-wider">
                 Nur Abholung · Kein Lieferservice
             </span>
 </div>
 </div>
 <!-- 4. UNSER LADEN Bölümü -->
 <section class="relative w-full min-h-[480px] flex items-center justify-center py-16 px-6 bg-neutral-900 overflow-hidden" id="our-place">
-<img alt="Rollwerk Restaurant" class="absolute inset-0 w-full h-full object-cover z-0 opacity-40" src="images/dukkan.png"/>
+<img loading="lazy" decoding="async" alt="Rollwerk Restaurant" class="absolute inset-0 w-full h-full object-cover z-0 opacity-40" src="images/dukkan.png"/>
 <div class="absolute inset-0 bg-black/65 z-0"></div>
 <div class="relative z-10 max-w-5xl mx-auto w-full grid grid-cols-1 md:grid-cols-3 gap-8 text-center text-white">
 <div class="p-2 sm:p-4">
@@ -229,23 +271,23 @@
 </section>
 <!-- 5. SPEISEKARTE (Menü) -->
 <section class="w-full py-16 sm:py-24 px-4 bg-[#181818] flex flex-col items-center" id="menu">
-<div class="max-w-5xl w-full">
+<div class="max-w-[94rem] w-full">
 <div class="text-center mb-12 sm:mb-16">
-<h2 class="font-brand text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-wider uppercase text-[#F5F2EB]">
+<h2 class="rw-menu-title font-brand font-extrabold tracking-wider uppercase text-[#F5F2EB]">
                     SPEISEKARTE
                 </h2>
-<div class="w-16 h-0.5 bg-[#C35A38] mx-auto mt-3"></div>
+<!-- Speisekarte: decorative underline removed -->
 </div>
 <!-- ROLLI -->
 <div class="mb-14 sm:mb-16">
-<h3 class="font-brand text-2xl sm:text-3xl font-bold tracking-wider uppercase text-[#D8926B] border-b border-white/10 pb-2 mb-6 sm:mb-8">
+<h3 class="rw-category-title font-brand font-extrabold tracking-wider uppercase text-[#F5F2EB] mb-6 sm:mb-8">
                     ROLLI
                 </h3>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
 <!-- Rolli Rind Kartı -->
-<div class="menu-card bg-[#222222] rounded-xl overflow-hidden border border-white/5 flex flex-col sm:flex-row hover:border-[#C35A38]/60 transition-all cursor-pointer group shadow-md" data-allergens="A (Glutenhaltiges Getreide/Weizen)" data-calories="ca. 540 kcal" data-desc="In Filoteig veya Brot. Feines Rindfleisch, Tomaten, Zwiebeln, gemischter Salat, Salatgewürze und Sumach." data-img="images/menu_rind_tantuni.jpg" data-menu-id="rolli-1" data-options="Option: Filoteig-Wrap veya traditionelles Brot" data-price="Im Laden: € 7,50 · Zum Mitnehmen: € 6,90" data-title="ROLLI – RIND" data-type="none">
-<div class="w-full sm:w-44 h-44 sm:h-auto shrink-0 bg-neutral-800 overflow-hidden relative">
-<img alt="Rolli Rind" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-menu-image="" src="images/menu_rind_tantuni.jpg"/>
+<div class="menu-card bg-[#222222] rounded-xl overflow-hidden border border-white/5 flex flex-col hover:border-[#C35A38]/60 transition-all cursor-pointer group shadow-md" data-allergens="A (Glutenhaltiges Getreide/Weizen)" data-calories="ca. 540 kcal" data-desc="In Filoteig oder Brot. Feines Rindfleisch, Tomaten, Zwiebeln, gemischter Salat, Salatgewürze und Sumach." data-img="images/menu_rind_tantuni.jpg" data-menu-id="rolli-1" data-options="Option: Filoteig-Wrap oder traditionelles Brot" data-price="Im Laden: € 7,50 · Zum Mitnehmen: € 6,90" data-title="ROLLI – RIND" data-type="none">
+<div class="w-full h-60 lg:h-64 xl:h-72 shrink-0 bg-neutral-800 overflow-hidden relative">
+<img loading="lazy" decoding="async" alt="Rolli Rind" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-menu-image="" src="images/menu_rind_tantuni.jpg"/>
 </div>
 <div class="p-4 sm:p-5 flex flex-col justify-between flex-1">
 <div>
@@ -255,7 +297,7 @@
 </div>
 <div class="text-[11px] text-neutral-400 font-medium mt-0.5">ca. 540 kcal</div>
 <p class="text-xs text-neutral-400 mt-2 leading-relaxed" data-menu-description="">
-                                    In Filoteig veya Brot. Feines Rindfleisch, Tomaten, Zwiebeln, gemischter Salat, Salatgewürze und Sumach.
+                                    In Filoteig oder Brot. Feines Rindfleisch, Tomaten, Zwiebeln, gemischter Salat, Salatgewürze und Sumach.
                                 </p>
 </div>
 <div class="mt-3 pt-2 border-t border-white/5">
@@ -267,9 +309,9 @@
 </div>
 </div>
 <!-- Rolli Hähnchen Kartı -->
-<div class="menu-card bg-[#222222] rounded-xl overflow-hidden border border-white/5 flex flex-col sm:flex-row hover:border-[#C35A38]/60 transition-all cursor-pointer group shadow-md" data-allergens="A (Glutenhaltiges Getreide/Weizen)" data-calories="ca. 480 kcal" data-desc="In Filoteig oder Brot. Zartes Hähnchenfleisch, Tomaten, Zwiebeln, gemischter Salat, Salatgewürze und Sumach." data-img="images/menu_hahnchen_tantuni.jpg" data-menu-id="rolli-2" data-options="Option: Filoteig-Wrap oder traditionelles Brot" data-price="Im Laden: € 7,20 · Zum Mitnehmen: € 6,70" data-title="ROLLI – HÄHNCHEN" data-type="none">
-<div class="w-full sm:w-44 h-44 sm:h-auto shrink-0 bg-neutral-800 overflow-hidden relative">
-<img alt="Rolli Hähnchen" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-menu-image="" src="images/menu_hahnchen_tantuni.jpg"/>
+<div class="menu-card bg-[#222222] rounded-xl overflow-hidden border border-white/5 flex flex-col hover:border-[#C35A38]/60 transition-all cursor-pointer group shadow-md" data-allergens="A (Glutenhaltiges Getreide/Weizen)" data-calories="ca. 480 kcal" data-desc="In Filoteig oder Brot. Zartes Hähnchenfleisch, Tomaten, Zwiebeln, gemischter Salat, Salatgewürze und Sumach." data-img="images/menu_hahnchen_tantuni.jpg" data-menu-id="rolli-2" data-options="Option: Filoteig-Wrap oder traditionelles Brot" data-price="Im Laden: € 7,20 · Zum Mitnehmen: € 6,70" data-title="ROLLI – HÄHNCHEN" data-type="none">
+<div class="w-full h-60 lg:h-64 xl:h-72 shrink-0 bg-neutral-800 overflow-hidden relative">
+<img loading="lazy" decoding="async" alt="Rolli Hähnchen" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-menu-image="" src="images/menu_hahnchen_tantuni.jpg"/>
 </div>
 <div class="p-4 sm:p-5 flex flex-col justify-between flex-1">
 <div>
@@ -294,7 +336,7 @@
 </div>
 <!-- FALAFEL -->
 <div class="mb-14 sm:mb-16">
-<h3 class="font-brand text-2xl sm:text-3xl font-bold tracking-wider uppercase text-[#D8926B] border-b border-white/10 pb-2 mb-6 sm:mb-8">
+<h3 class="rw-category-title font-brand font-extrabold tracking-wider uppercase text-[#F5F2EB] mb-6 sm:mb-8">
                     FALAFEL
                 </h3>
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
@@ -305,8 +347,8 @@
 <!-- Falafelteller Variante 2 -->
 <!-- Falafelteller Variante 3 -->
 <div class="menu-card bg-[#222222] rounded-xl overflow-hidden border border-white/5 flex flex-col hover:border-[#C35A38]/60 transition-all cursor-pointer group shadow-md" data-allergens="G (Milch/Laktose), H (Mandeln), K (Sesam)" data-calories="ca. 850 kcal" data-desc="6 Falafel mit Rote Bete und Ingwer, gemischter Salat, Süßkartoffel-Pommes, gegrillter Halloumi, Mandeln, Sumach und Sauce nach Wahl." data-img="images/menu_falafelteller_6.1.png" data-menu-id="falafel-1" data-options="Wähle deine Sauce" data-price="€ 7,90" data-title="FALAFELTELLER 1 – ROTE BETE &amp; INGWER (WÜRZIG) (6 STÜCK)" data-type="veggie">
-<div class="h-44 bg-neutral-800 overflow-hidden relative">
-<img alt="Falafelteller 1 – ROTE BETE &amp; INGWER (WÜRZIG)" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-menu-image="" src="images/menu_falafelteller_6.1.png"/>
+<div class="h-60 lg:h-64 xl:h-72 bg-neutral-800 overflow-hidden relative">
+<img loading="lazy" decoding="async" alt="Falafelteller 1 – ROTE BETE &amp; INGWER (WÜRZIG)" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-menu-image="" src="images/menu_falafelteller_6.1.png"/>
 </div>
 <div class="p-4 sm:p-5 flex flex-col justify-between flex-1">
 <div>
@@ -330,8 +372,8 @@
 </div>
 </div>
 </div><div class="menu-card bg-[#222222] rounded-xl overflow-hidden border border-white/5 flex flex-col hover:border-[#C35A38]/60 transition-all cursor-pointer group shadow-md" data-allergens="G (Milch/Laktose), H (Mandeln), K (Sesam)" data-calories="ca. 850 kcal" data-desc="6 Falafel mit Edamame, Erbsen und frische Kräuter, gemischter Salat, Süßkartoffel-Pommes, gegrillter Halloumi, Mandeln, Sumach und Sauce nach Wahl." data-img="images/menu_falafelteller_6.2.png" data-menu-id="falafel-2" data-options="Wähle deine Sauce" data-price="€ 7,90" data-title="FALAFELTELLER 2 – EDAMAME &amp; ERBSEN (KRÄUTERFRISCH) (6 STÜCK)" data-type="veggie">
-<div class="h-44 bg-neutral-800 overflow-hidden relative">
-<img alt="Falafelteller 2 – EDAMAME &amp; ERBSEN (KRÄUTERFRISCH)" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-menu-image="" src="images/menu_falafelteller_6.2.png"/>
+<div class="h-60 lg:h-64 xl:h-72 bg-neutral-800 overflow-hidden relative">
+<img loading="lazy" decoding="async" alt="Falafelteller 2 – EDAMAME &amp; ERBSEN (KRÄUTERFRISCH)" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-menu-image="" src="images/menu_falafelteller_6.2.png"/>
 </div>
 <div class="p-4 sm:p-5 flex flex-col justify-between flex-1">
 <div>
@@ -355,8 +397,8 @@
 </div>
 </div>
 </div><div class="menu-card bg-[#222222] rounded-xl overflow-hidden border border-white/5 flex flex-col hover:border-[#C35A38]/60 transition-all cursor-pointer group shadow-md" data-allergens="G (Milch/Laktose), H (Mandeln), K (Sesam)" data-calories="ca. 850 kcal" data-desc="6 Falafel mit gegrillte Paprika und Harissa-Gewürz, gemischter Salat, Süßkartoffel-Pommes, gegrillter Halloumi, Mandeln, Sumach und Sauce nach Wahl." data-img="images/menu_falafelteller_6.3.png" data-menu-id="falafel-3" data-options="Wähle deine Sauce" data-price="€ 7,90" data-title="FALAFELTELLER 3 – HARISSA &amp; PAPRIKA (PIKANT) (6 STÜCK)" data-type="veggie">
-<div class="h-44 bg-neutral-800 overflow-hidden relative">
-<img alt="Falafelteller 3 – HARISSA &amp; PAPRIKA (PIKANT)" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-menu-image="" src="images/menu_falafelteller_6.3.png"/>
+<div class="h-60 lg:h-64 xl:h-72 bg-neutral-800 overflow-hidden relative">
+<img loading="lazy" decoding="async" alt="Falafelteller 3 – HARISSA &amp; PAPRIKA (PIKANT)" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-menu-image="" src="images/menu_falafelteller_6.3.png"/>
 </div>
 <div class="p-4 sm:p-5 flex flex-col justify-between flex-1">
 <div>
@@ -380,8 +422,8 @@
 </div>
 </div>
 </div><div class="menu-card bg-[#222222] rounded-xl overflow-hidden border border-white/5 flex flex-col hover:border-[#C35A38]/60 transition-all cursor-pointer group shadow-md" data-allergens="A (Gluten/Weizen), K (Sesam), G (Milch bei Joghurtsauce)" data-calories="ca. 520 kcal" data-desc="Knusprige Falafel mit frischem Salat und Sauce nach Wahl: Joghurt, Avocado, Hummus oder Curry." data-img="images/menu_falafel_wrap.jpg" data-menu-id="falafel-4" data-options="Wähle: Dürüm oder Brot · Wähle deine Sauce" data-price="€ 6,00" data-title="FALAFEL (DÜRÜM ODER BROT)" data-type="vegan-option">
-<div class="h-44 bg-neutral-800 overflow-hidden relative">
-<img alt="Falafel Wrap" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-menu-image="" src="images/menu_falafel_wrap.jpg"/>
+<div class="h-60 lg:h-64 xl:h-72 bg-neutral-800 overflow-hidden relative">
+<img loading="lazy" decoding="async" alt="Falafel Wrap" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-menu-image="" src="images/menu_falafel_wrap.jpg"/>
 </div>
 <div class="p-4 sm:p-5 flex flex-col justify-between flex-1">
 <div>
@@ -403,8 +445,8 @@
 </div>
 </div>
 </div><div class="menu-card bg-[#222222] rounded-xl overflow-hidden border border-white/5 flex flex-col hover:border-[#C35A38]/60 transition-all cursor-pointer group shadow-md" data-allergens="K (Sesam), G (Milch bei Joghurtsauce)" data-calories="ca. 380 kcal" data-desc="5 knusprige Falafelbällchen mit einem Dip nach Wahl. Nur zum Mitnehmen." data-img="images/menu_falafel_box.jpg" data-menu-id="falafel-5" data-options="Nur zum Mitnehmen · Inklusive 1 Dip nach Wahl" data-price="€ 5,00" data-title="FALAFEL BOX" data-type="vegan-option">
-<div class="h-44 bg-neutral-800 overflow-hidden relative">
-<img alt="Falafel Box" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-menu-image="" src="images/menu_falafel_box.jpg"/>
+<div class="h-60 lg:h-64 xl:h-72 bg-neutral-800 overflow-hidden relative">
+<img loading="lazy" decoding="async" alt="Falafel Box" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-menu-image="" src="images/menu_falafel_box.jpg"/>
 </div>
 <div class="p-4 sm:p-5 flex flex-col justify-between flex-1">
 <div>
@@ -429,14 +471,14 @@
 </div>
 <!-- SALATE -->
 <div class="mb-14 sm:mb-16">
-<h3 class="font-brand text-2xl sm:text-3xl font-bold tracking-wider uppercase text-[#D8926B] border-b border-white/10 pb-2 mb-6 sm:mb-8">
+<h3 class="rw-category-title font-brand font-extrabold tracking-wider uppercase text-[#F5F2EB] mb-6 sm:mb-8">
                     SALATE
                 </h3>
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
 <!-- Gemischter Salat Kartı -->
 <div class="menu-card bg-[#222222] rounded-xl overflow-hidden border border-white/5 flex flex-col hover:border-[#C35A38]/60 transition-all cursor-pointer group shadow-md" data-allergens="Keine deklarationspflichtigen Allergene" data-calories="ca. 180 kcal" data-desc="Tomaten, Zwiebeln, Eisbergsalat, gemischte Blattsalate und aromatischer Sumach mit hausgemachtem Essig-Öl-Dressing." data-img="images/menu_gemischter_salat.jpg" data-menu-id="salate-1" data-options="Frisch zubereitet" data-price="€ 6,70" data-title="GEMISCHTER SALAT" data-type="vegan">
-<div class="h-44 bg-neutral-800 overflow-hidden relative">
-<img alt="Gemischter Salat" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-menu-image="" src="images/menu_gemischter_salat.jpg"/>
+<div class="h-60 lg:h-64 xl:h-72 bg-neutral-800 overflow-hidden relative">
+<img loading="lazy" decoding="async" alt="Gemischter Salat" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-menu-image="" src="images/menu_gemischter_salat.jpg"/>
 </div>
 <div class="p-4 sm:p-5 flex flex-col justify-between flex-1">
 <div>
@@ -462,8 +504,8 @@
 </div>
 <!-- Fenchel & Süßkartoffel Salat Kartı -->
 <div class="menu-card bg-[#222222] rounded-xl overflow-hidden border border-white/5 flex flex-col hover:border-[#C35A38]/60 transition-all cursor-pointer group shadow-md" data-allergens="Keine deklarationspflichtigen Allergene" data-calories="ca. 340 kcal" data-desc="Tomaten, Zwiebeln, gemischte Blattsalate, frisch gehobelter Fenchel und knusprige Süßkartoffel-Pommes." data-img="images/menu_fenchel_suesskartoffel_salat.jpg" data-menu-id="salate-2" data-options="Frisch zubereitet" data-price="€ 7,20" data-title="FENCHEL &amp; SÜSSKARTOFFEL SALAT" data-type="vegan">
-<div class="h-44 bg-neutral-800 overflow-hidden relative">
-<img alt="Fenchel &amp; Süßkartoffel Salat" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-menu-image="" src="images/menu_fenchel_suesskartoffel_salat.jpg"/>
+<div class="h-60 lg:h-64 xl:h-72 bg-neutral-800 overflow-hidden relative">
+<img loading="lazy" decoding="async" alt="Fenchel &amp; Süßkartoffel Salat" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-menu-image="" src="images/menu_fenchel_suesskartoffel_salat.jpg"/>
 </div>
 <div class="p-4 sm:p-5 flex flex-col justify-between flex-1">
 <div>
@@ -489,8 +531,8 @@
 </div>
 <!-- Mittelmeer-Salat Kartı -->
 <div class="menu-card bg-[#222222] rounded-xl overflow-hidden border border-white/5 flex flex-col hover:border-[#C35A38]/60 transition-all cursor-pointer group shadow-md" data-allergens="G (Milch/Laktose)" data-calories="ca. 310 kcal" data-desc="Frische gemischte Blattsalate, sonnengereifte schwarze Oliven und feiner Hirtenkäse aus Kuhmilch." data-img="images/menu_mittelmeer_salat.jpg" data-menu-id="salate-3" data-options="Frisch zubereitet" data-price="€ 7,20" data-title="MITTELMEER-SALAT" data-type="veggie">
-<div class="h-44 bg-neutral-800 overflow-hidden relative">
-<img alt="Mittelmeer-Salat" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-menu-image="" src="images/menu_mittelmeer_salat.jpg"/>
+<div class="h-60 lg:h-64 xl:h-72 bg-neutral-800 overflow-hidden relative">
+<img loading="lazy" decoding="async" alt="Mittelmeer-Salat" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-menu-image="" src="images/menu_mittelmeer_salat.jpg"/>
 </div>
 <div class="p-4 sm:p-5 flex flex-col justify-between flex-1">
 <div>
@@ -516,8 +558,8 @@
 </div>
 <!-- Halloumi & Süßkartoffel Salat Kartı -->
 <div class="menu-card bg-[#222222] rounded-xl overflow-hidden border border-white/5 flex flex-col hover:border-[#C35A38]/60 transition-all cursor-pointer group shadow-md" data-allergens="G (Milch/Laktose)" data-calories="ca. 490 kcal" data-desc="Gemischte Blattsalate mit knusprigen Süßkartoffel-Pommes und goldbraun gegrillten zypriotischen Halloumi-Würfeln." data-img="images/menu_halloumi_suesskartoffel_salat.jpg" data-menu-id="salate-4" data-options="Frisch zubereitet" data-price="€ 7,40" data-title="HALLOUMI &amp; SÜSSKARTOFFEL SALAT" data-type="veggie">
-<div class="h-44 bg-neutral-800 overflow-hidden relative">
-<img alt="Halloumi &amp; Süßkartoffel Salat" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-menu-image="" src="images/menu_halloumi_suesskartoffel_salat.jpg"/>
+<div class="h-60 lg:h-64 xl:h-72 bg-neutral-800 overflow-hidden relative">
+<img loading="lazy" decoding="async" alt="Halloumi &amp; Süßkartoffel Salat" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-menu-image="" src="images/menu_halloumi_suesskartoffel_salat.jpg"/>
 </div>
 <div class="p-4 sm:p-5 flex flex-col justify-between flex-1">
 <div>
@@ -544,15 +586,15 @@
 </div>
 </div>
 <!-- BEILAGEN & DIPS -->
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 mb-14 sm:mb-16">
-<div>
-<h3 class="font-brand text-2xl sm:text-3xl font-bold tracking-wider uppercase text-[#D8926B] border-b border-white/10 pb-2 mb-6">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 mb-14 sm:mb-16 items-stretch">
+<div class="flex flex-col">
+<h3 class="rw-category-title font-brand font-extrabold tracking-wider uppercase text-[#F5F2EB] mb-6">
                         BEILAGEN
                     </h3>
-<div class="flex flex-col gap-4">
-<div class="menu-card bg-[#222222] rounded-xl overflow-hidden border border-white/5 flex items-center p-3 gap-4 hover:border-[#C35A38]/60 transition-all cursor-pointer group shadow-md" data-allergens="Keine deklarationspflichtigen Allergene" data-calories="ca. 320 kcal" data-desc="Knusprig frittierte klassische Kartoffelstäbchen mit Meersalz verfeinert." data-img="images/menu_pommes.jpg" data-menu-id="beilagen-1" data-options="Ketchup veya Mayonnaise auf Wunsch" data-price="€ 3,50" data-title="POMMES FRITES" data-type="vegan">
-<div class="w-16 h-16 sm:w-20 sm:h-20 rounded-lg overflow-hidden shrink-0">
-<img alt="Pommes Frites" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-menu-image="" src="images/menu_pommes.jpg"/>
+<div class="flex flex-col gap-4 flex-1">
+<div class="menu-card bg-[#222222] rounded-xl overflow-hidden border border-white/5 flex items-center p-3 gap-4 hover:border-[#C35A38]/60 transition-all cursor-pointer group shadow-md h-full" data-allergens="Keine deklarationspflichtigen Allergene" data-calories="ca. 320 kcal" data-desc="Knusprig frittierte klassische Kartoffelstäbchen mit Meersalz verfeinert." data-img="images/menu_pommes.jpg" data-menu-id="beilagen-1" data-options="Ketchup oder Mayonnaise auf Wunsch" data-price="€ 3,50" data-title="POMMES FRITES" data-type="vegan">
+<div class="w-20 h-20 sm:w-28 sm:h-28 lg:w-72 xl:w-80 2xl:w-96 lg:h-full lg:self-stretch rounded-lg overflow-hidden shrink-0">
+<img loading="lazy" decoding="async" alt="Pommes Frites" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300" data-menu-image="" src="images/menu_pommes.jpg"/>
 </div>
 <div class="flex-1 pr-2">
 <div class="flex justify-between items-center">
@@ -572,58 +614,56 @@
 </div>
 </div>
 </div>
-<div>
-<h3 class="font-brand text-2xl sm:text-3xl font-bold tracking-wider uppercase text-[#D8926B] border-b border-white/10 pb-2 mb-6">
+<div class="flex flex-col">
+<h3 class="rw-category-title font-brand font-extrabold tracking-wider uppercase text-[#F5F2EB] mb-6">
                         DIPS &amp; SAUCEN
                     </h3>
-<div class="bg-[#222222] rounded-xl border border-white/5 p-4 sm:p-6 flex flex-col justify-between">
-<div class="grid grid-cols-2 gap-3 sm:gap-4">
-<div class="menu-card flex items-center gap-2 sm:gap-3 p-1.5 rounded-lg hover:bg-white/5 transition-colors cursor-pointer group" data-allergens="K (Sesam)" data-calories="ca. 140 kcal" data-desc="Cremiger Kichererbsen-Dip mit Tahini (Sesammus), Knoblauch und Olivenöl." data-img="images/menu_dip_hummus.jpg" data-menu-id="saucen-1" data-options="Hausgemacht" data-price="€ 1,50" data-title="HUMMUS" data-type="vegan">
-<img alt="Hummus" class="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover bg-neutral-800 shrink-0 group-hover:scale-105 transition-transform" data-menu-image="" src="images/menu_dip_hummus.jpg"/>
-<div>
-<h5 class="font-semibold text-xs text-white uppercase group-hover:text-[#D8926B] transition-colors" data-menu-name="">Hummus</h5>
-<span class="text-[11px] text-[#D8926B] block" data-menu-price="">€ 1,50</span>
-<span class="text-[9px] text-neutral-400">Allergene: K</span>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-rows-2 gap-3 sm:gap-4 flex-1 lg:h-full">
+<div class="menu-card bg-[#222222] rounded-xl border border-white/5 hover:border-[#C35A38]/60 transition-all cursor-pointer group shadow-md p-4 sm:p-5 flex items-center gap-4 sm:gap-5 min-h-[150px] lg:min-h-0" data-allergens="K (Sesam)" data-calories="ca. 140 kcal" data-desc="Cremiger Kichererbsen-Dip mit Tahini (Sesammus), Knoblauch und Olivenöl." data-img="images/menu_dip_hummus.jpg" data-menu-id="saucen-1" data-options="Hausgemacht" data-price="€ 1,50" data-title="HUMMUS" data-type="vegan">
+<img loading="lazy" decoding="async" alt="Hummus" class="w-20 h-20 sm:w-24 sm:h-24 xl:w-28 xl:h-28 rounded-full object-cover bg-neutral-800 shrink-0 group-hover:scale-105 transition-transform duration-300" data-menu-image="" src="images/menu_dip_hummus.jpg"/>
+<div class="min-w-0 flex-1">
+<h5 class="font-brand font-bold text-lg sm:text-xl text-white uppercase tracking-wide group-hover:text-[#D8926B] transition-colors" data-menu-name="">Hummus</h5>
+<span class="text-base sm:text-lg text-[#D8926B] font-semibold block mt-0.5" data-menu-price="">€ 1,50</span>
+<span class="text-xs sm:text-sm text-neutral-400 block mt-2">Allergene: K</span>
 </div>
 </div>
-<div class="menu-card flex items-center gap-2 sm:gap-3 p-1.5 rounded-lg hover:bg-white/5 transition-colors cursor-pointer group" data-allergens="G (Milch/Laktose)" data-calories="ca. 95 kcal" data-desc="Erfrischende Kräuter-Joghurtsauce mit feinem Knoblauch und Minze." data-img="images/menu_dip_joghurtsauce.jpg" data-menu-id="saucen-2" data-options="Hausgemacht" data-price="€ 1,50" data-title="JOGHURTSAUCE" data-type="veggie">
-<img alt="Joghurtsauce" class="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover bg-neutral-800 shrink-0 group-hover:scale-105 transition-transform" data-menu-image="" src="images/menu_dip_joghurtsauce.jpg"/>
-<div>
-<h5 class="font-semibold text-xs text-white uppercase group-hover:text-[#D8926B] transition-colors" data-menu-name="">Joghurtsauce</h5>
-<span class="text-[11px] text-[#D8926B] block" data-menu-price="">€ 1,50</span>
-<span class="text-[9px] text-neutral-400">Allergene: G</span>
+<div class="menu-card bg-[#222222] rounded-xl border border-white/5 hover:border-[#C35A38]/60 transition-all cursor-pointer group shadow-md p-4 sm:p-5 flex items-center gap-4 sm:gap-5 min-h-[150px] lg:min-h-0" data-allergens="G (Milch/Laktose)" data-calories="ca. 95 kcal" data-desc="Erfrischende Kräuter-Joghurtsauce mit feinem Knoblauch und Minze." data-img="images/menu_dip_joghurtsauce.jpg" data-menu-id="saucen-2" data-options="Hausgemacht" data-price="€ 1,50" data-title="JOGHURTSAUCE" data-type="veggie">
+<img loading="lazy" decoding="async" alt="Joghurtsauce" class="w-20 h-20 sm:w-24 sm:h-24 xl:w-28 xl:h-28 rounded-full object-cover bg-neutral-800 shrink-0 group-hover:scale-105 transition-transform duration-300" data-menu-image="" src="images/menu_dip_joghurtsauce.jpg"/>
+<div class="min-w-0 flex-1">
+<h5 class="font-brand font-bold text-lg sm:text-xl text-white uppercase tracking-wide group-hover:text-[#D8926B] transition-colors" data-menu-name="">Joghurtsauce</h5>
+<span class="text-base sm:text-lg text-[#D8926B] font-semibold block mt-0.5" data-menu-price="">€ 1,50</span>
+<span class="text-xs sm:text-sm text-neutral-400 block mt-2">Allergene: G</span>
 </div>
 </div>
-<div class="menu-card flex items-center gap-2 sm:gap-3 p-1.5 rounded-lg hover:bg-white/5 transition-colors cursor-pointer group" data-allergens="G (Milch/Laktose), J (Senf)" data-calories="ca. 110 kcal" data-desc="Aromatisch-würzige Currysauce mit milder Schärfe." data-img="images/menu_dip_curry.jpg" data-menu-id="saucen-3" data-options="Hausgemacht" data-price="€ 1,50" data-title="CURRYSAUCE" data-type="veggie">
-<img alt="Currysauce" class="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover bg-neutral-800 shrink-0 group-hover:scale-105 transition-transform" data-menu-image="" src="images/menu_dip_curry.jpg"/>
-<div>
-<h5 class="font-semibold text-xs text-white uppercase group-hover:text-[#D8926B] transition-colors" data-menu-name="">Currysauce</h5>
-<span class="text-[11px] text-[#D8926B] block" data-menu-price="">€ 1,50</span>
-<span class="text-[9px] text-neutral-400">Allergene: G, J</span>
+<div class="menu-card bg-[#222222] rounded-xl border border-white/5 hover:border-[#C35A38]/60 transition-all cursor-pointer group shadow-md p-4 sm:p-5 flex items-center gap-4 sm:gap-5 min-h-[150px] lg:min-h-0" data-allergens="G (Milch/Laktose), J (Senf)" data-calories="ca. 110 kcal" data-desc="Aromatisch-würzige Currysauce mit milder Schärfe." data-img="images/menu_dip_curry.jpg" data-menu-id="saucen-3" data-options="Hausgemacht" data-price="€ 1,50" data-title="CURRYSAUCE" data-type="veggie">
+<img loading="lazy" decoding="async" alt="Currysauce" class="w-20 h-20 sm:w-24 sm:h-24 xl:w-28 xl:h-28 rounded-full object-cover bg-neutral-800 shrink-0 group-hover:scale-105 transition-transform duration-300" data-menu-image="" src="images/menu_dip_curry.jpg"/>
+<div class="min-w-0 flex-1">
+<h5 class="font-brand font-bold text-lg sm:text-xl text-white uppercase tracking-wide group-hover:text-[#D8926B] transition-colors" data-menu-name="">Currysauce</h5>
+<span class="text-base sm:text-lg text-[#D8926B] font-semibold block mt-0.5" data-menu-price="">€ 1,50</span>
+<span class="text-xs sm:text-sm text-neutral-400 block mt-2">Allergene: G, J</span>
 </div>
 </div>
-<div class="menu-card flex items-center gap-2 sm:gap-3 p-1.5 rounded-lg hover:bg-white/5 transition-colors cursor-pointer group" data-allergens="Keine deklarationspflichtigen Allergene" data-calories="ca. 120 kcal" data-desc="Fein cremige Sauce aus reifen Avocados mit Limettensaft und Kräutern." data-img="images/menu_dip_avocado.jpg" data-menu-id="saucen-4" data-options="Hausgemacht" data-price="€ 1,80" data-title="AVOCADOSAUCE" data-type="vegan">
-<img alt="Avocadosauce" class="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover bg-neutral-800 shrink-0 group-hover:scale-105 transition-transform" data-menu-image="" src="images/menu_dip_avocado.jpg"/>
-<div>
-<h5 class="font-semibold text-xs text-white uppercase group-hover:text-[#D8926B] transition-colors" data-menu-name="">Avocadosauce</h5>
-<span class="text-[11px] text-[#D8926B] block" data-menu-price="">€ 1,80</span>
-<span class="text-[9px] text-neutral-400">Allergene: Keine</span>
-</div>
+<div class="menu-card bg-[#222222] rounded-xl border border-white/5 hover:border-[#C35A38]/60 transition-all cursor-pointer group shadow-md p-4 sm:p-5 flex items-center gap-4 sm:gap-5 min-h-[150px] lg:min-h-0" data-allergens="Keine deklarationspflichtigen Allergene" data-calories="ca. 120 kcal" data-desc="Fein cremige Sauce aus reifen Avocados mit Limettensaft und Kräutern." data-img="images/menu_dip_avocado.jpg" data-menu-id="saucen-4" data-options="Hausgemacht" data-price="€ 1,80" data-title="AVOCADOSAUCE" data-type="vegan">
+<img loading="lazy" decoding="async" alt="Avocadosauce" class="w-20 h-20 sm:w-24 sm:h-24 xl:w-28 xl:h-28 rounded-full object-cover bg-neutral-800 shrink-0 group-hover:scale-105 transition-transform duration-300" data-menu-image="" src="images/menu_dip_avocado.jpg"/>
+<div class="min-w-0 flex-1">
+<h5 class="font-brand font-bold text-lg sm:text-xl text-white uppercase tracking-wide group-hover:text-[#D8926B] transition-colors" data-menu-name="">Avocadosauce</h5>
+<span class="text-base sm:text-lg text-[#D8926B] font-semibold block mt-0.5" data-menu-price="">€ 1,80</span>
+<span class="text-xs sm:text-sm text-neutral-400 block mt-2">Allergene: Keine</span>
 </div>
 </div>
 </div>
 </div>
 </div>
 <!-- TAGESANGEBOTE & DESSERTS -->
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 mb-14 sm:mb-16">
-<div>
-<h3 class="font-brand text-2xl sm:text-3xl font-bold tracking-wider uppercase text-[#D8926B] border-b border-white/10 pb-2 mb-6">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 mb-14 sm:mb-16 items-stretch">
+<div class="flex flex-col">
+<h3 class="rw-category-title font-brand font-extrabold tracking-wider uppercase text-[#F5F2EB] mb-6">
                         DESSERTS
                     </h3>
-<div class="flex flex-col gap-4">
+<div class="flex flex-col gap-4 flex-1">
 <div class="menu-card bg-[#222222] rounded-xl overflow-hidden border border-white/5 flex items-center p-3 gap-4 hover:border-[#C35A38]/60 transition-all cursor-pointer group shadow-md" data-allergens="A (Gluten/Weizen), G (Milch/Laktose)" data-calories="ca. 360 kcal" data-desc="Luftig geschlagener Vanillepudding mit Keksbröseln und sonnengereiften frischen Erdbeeren im Glas." data-img="images/menu_magnolia_erdbeer.jpg" data-menu-id="desserts-1" data-options="Gekühlt serviert" data-price="€ 5,30" data-title="ERDBEER-MAGNOLIA" data-type="veggie">
 <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-lg overflow-hidden shrink-0">
-<img alt="Erdbeer Magnolia" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-menu-image="" src="images/menu_magnolia_erdbeer.jpg"/>
+<img loading="lazy" decoding="async" alt="Erdbeer Magnolia" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-menu-image="" src="images/menu_magnolia_erdbeer.jpg"/>
 </div>
 <div class="flex-1 pr-2">
 <div class="flex justify-between items-center">
@@ -643,7 +683,7 @@
 </div>
 <div class="menu-card bg-[#222222] rounded-xl overflow-hidden border border-white/5 flex items-center p-3 gap-4 hover:border-[#C35A38]/60 transition-all cursor-pointer group shadow-md" data-allergens="A (Gluten/Weizen), G (Milch/Laktose)" data-calories="ca. 380 kcal" data-desc="Cremiger Vanillepudding verfeinert mit Bananenscheiben und knusprigem Keksboden." data-img="images/menu_magnolia_banane.jpg" data-menu-id="desserts-2" data-options="Gekühlt serviert" data-price="€ 5,30" data-title="BANANEN-MAGNOLIA" data-type="veggie">
 <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-lg overflow-hidden shrink-0">
-<img alt="Bananen Magnolia" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-menu-image="" src="images/menu_magnolia_banane.jpg"/>
+<img loading="lazy" decoding="async" alt="Bananen Magnolia" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-menu-image="" src="images/menu_magnolia_banane.jpg"/>
 </div>
 <div class="flex-1 pr-2">
 <div class="flex justify-between items-center">
@@ -663,11 +703,11 @@
 </div>
 </div>
 </div>
-<div>
-<h3 class="font-brand text-2xl sm:text-3xl font-bold tracking-wider uppercase text-[#D8926B] border-b border-white/10 pb-2 mb-6">
+<div class="flex flex-col">
+<h3 class="rw-category-title font-brand font-extrabold tracking-wider uppercase text-[#F5F2EB] mb-6">
                         TAGESANGEBOTE
                     </h3>
-<div class="bg-[#222222] rounded-xl border border-white/5 p-5 sm:p-6 shadow-md">
+<div class="bg-[#222222] rounded-xl border border-white/5 p-5 sm:p-6 shadow-md flex-1">
 <p class="text-sm text-neutral-200 leading-relaxed mb-4" data-translate-key="Ab und zu überraschen wir euch mit zusätzlichen Tagesgerichten und besonderen Spezialitäten.">Ab und zu überraschen wir euch mit zusätzlichen Tagesgerichten und besonderen Spezialitäten.</p>
 <p class="text-sm text-neutral-400 leading-relaxed" data-translate-key="Welche Gerichte aktuell angeboten werden, erfahrt ihr direkt auf unserer Speisekartentafel vor dem Laden. Dort findet ihr auch die jeweiligen Preise und weitere Informationen zu den Gerichten.">Welche Gerichte aktuell angeboten werden, erfahrt ihr direkt auf unserer Speisekartentafel vor dem Laden. Dort findet ihr auch die jeweiligen Preise und weitere Informationen zu den Gerichten.</p>
 </div>
@@ -675,11 +715,11 @@
 </div>
 <!-- GETRÄNKE -->
 <div class="mb-6">
-<h3 class="font-brand text-2xl sm:text-3xl font-bold tracking-wider uppercase text-[#D8926B] border-b border-white/10 pb-2 mb-6 sm:mb-8">GETRÄNKE</h3>
+<h3 class="rw-category-title font-brand font-extrabold tracking-wider uppercase text-[#F5F2EB] mb-6 sm:mb-8">GETRÄNKE</h3>
 <div class="bg-[#222222] rounded-xl border border-white/5 p-5 sm:p-8">
 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-8 lg:gap-10">
 <div class="min-w-0">
-<h4 class="font-brand text-lg sm:text-xl text-[#D8926B] font-bold uppercase tracking-wider mb-4">ALKOHOLISCHE GETRÄNKE</h4>
+<h4 class="rw-drinks-subtitle font-brand text-[#F5F2EB] font-bold uppercase tracking-wider mb-4">ALKOHOLISCHE GETRÄNKE</h4>
 <div class="flex flex-col gap-3">
 <div class="flex items-start justify-between gap-3 border-b border-white/5 pb-2 min-w-0" data-drink-id="drink-1-1"><span class="text-xs uppercase text-neutral-200 leading-relaxed min-w-0" data-drink-name="">Fassbier (0,5 l)</span><span class="text-xs text-[#D8926B] font-semibold whitespace-nowrap" data-drink-price="">€ 4,50</span></div>
 <div class="flex items-start justify-between gap-3 border-b border-white/5 pb-2 min-w-0" data-drink-id="drink-1-2"><span class="text-xs uppercase text-neutral-200 leading-relaxed min-w-0" data-drink-name="">Fassbier (0,3 l)</span><span class="text-xs text-[#D8926B] font-semibold whitespace-nowrap" data-drink-price="">€ 3,00</span></div>
@@ -687,7 +727,7 @@
 </div>
 </div>
 <div class="min-w-0">
-<h4 class="font-brand text-lg sm:text-xl text-[#D8926B] font-bold uppercase tracking-wider mb-4">SOFTDRINKS &amp; ANDERE GETRÄNKE</h4>
+<h4 class="rw-drinks-subtitle font-brand text-[#F5F2EB] font-bold uppercase tracking-wider mb-4">SOFTDRINKS &amp; ANDERE GETRÄNKE</h4>
 <div class="flex flex-col gap-3">
 <div class="flex items-start justify-between gap-3 border-b border-white/5 pb-2 min-w-0" data-drink-id="drink-2-1"><span class="text-xs uppercase text-neutral-200 leading-relaxed min-w-0" data-drink-name="">Benediktiner Hell Alkoholfrei (Flasche, 0,33 l)</span><span class="text-xs text-[#D8926B] font-semibold whitespace-nowrap" data-drink-price="">€ 3,40</span></div>
 <div class="flex items-start justify-between gap-3 border-b border-white/5 pb-2 min-w-0" data-drink-id="drink-2-2"><span class="text-xs uppercase text-neutral-200 leading-relaxed min-w-0" data-drink-name="">Vita Cola Original (0,5 l)</span><span class="text-xs text-[#D8926B] font-semibold whitespace-nowrap" data-drink-price="">€ 2,50</span></div>
@@ -699,7 +739,7 @@
 </div>
 </div>
 <div class="min-w-0">
-<h4 class="font-brand text-lg sm:text-xl text-[#D8926B] font-bold uppercase tracking-wider mb-4">HEISSE GETRÄNKE</h4>
+<h4 class="rw-drinks-subtitle font-brand text-[#F5F2EB] font-bold uppercase tracking-wider mb-4">HEISSE GETRÄNKE</h4>
 <div class="flex flex-col gap-3">
 <div class="flex items-start justify-between gap-3 border-b border-white/5 pb-2 min-w-0" data-drink-id="drink-3-1"><span class="text-xs uppercase text-neutral-200 leading-relaxed min-w-0" data-drink-name="">Filterkaffee</span><span class="text-xs text-[#D8926B] font-semibold whitespace-nowrap" data-drink-price="">€ 2,90</span></div>
 </div>
@@ -710,12 +750,12 @@
 </div></section>
 <!-- MENÜ DETAY POPUP (MODAL) -->
 <div class="hidden fixed inset-0 z-[9999] bg-black/80 backdrop-blur-sm items-center justify-center p-4" id="dish-modal">
-<div class="bg-[#202020] border border-white/10 rounded-2xl max-w-2xl w-full overflow-hidden shadow-2xl relative flex flex-col md:flex-row">
+<div class="rw-dish-modal-panel bg-[#202020] border border-white/10 rounded-2xl max-w-6xl w-full overflow-hidden shadow-2xl relative flex flex-col md:flex-row">
 <button aria-label="Schließen" class="absolute top-3 right-4 z-20 text-white/70 hover:text-white text-3xl font-light leading-none transition-colors" id="dish-modal-close" type="button">×</button>
-<div class="w-full md:w-1/2 h-56 md:h-auto bg-neutral-900 shrink-0 relative">
+<div class="w-full md:w-[55%] h-64 md:h-auto bg-neutral-900 shrink-0 relative">
 <img alt="" class="w-full h-full object-cover" id="dish-modal-img" src=""/>
 </div>
-<div class="w-full md:w-1/2 p-6 sm:p-7 flex flex-col justify-between text-left">
+<div class="w-full md:w-[45%] p-6 sm:p-7 md:p-8 lg:p-10 flex flex-col justify-between text-left">
 <div>
 <div class="flex flex-wrap items-center gap-2 mb-2 pr-6">
 <h3 class="font-brand font-bold text-2xl text-[#F5F2EB] uppercase tracking-wide leading-tight" id="dish-modal-title"></h3>
@@ -750,42 +790,42 @@
 </div>
 <!-- 6. Galerie Bölümü -->
 <section class="w-full py-16 sm:py-20 bg-[#141414] flex flex-col items-center" id="galerie">
-<h2 class="font-brand text-4xl sm:text-5xl font-extrabold tracking-wider uppercase text-[#EAE6DF] mb-8 sm:mb-12">
+<h2 class="rw-gallery-title font-brand font-extrabold tracking-wider uppercase text-[#EAE6DF] mb-8 sm:mb-12">
             GALERIE
         </h2>
 <div class="w-full grid grid-cols-2 md:grid-cols-4 gap-1">
 <div class="aspect-[4/3] bg-neutral-800 overflow-hidden group">
-<img alt="Rollwerk Galerie 1" class="gallery-image w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 cursor-zoom-in" src="images/galeri_1.jpg"/>
+<img loading="lazy" decoding="async" alt="Rollwerk Galerie 1" class="gallery-image w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 cursor-zoom-in" src="images/galeri_1.jpg"/>
 </div>
 <div class="aspect-[4/3] bg-neutral-800 overflow-hidden group">
-<img alt="Rollwerk Galerie 2" class="gallery-image w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 cursor-zoom-in" src="images/galeri_2.jpg"/>
+<img loading="lazy" decoding="async" alt="Rollwerk Galerie 2" class="gallery-image w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 cursor-zoom-in" src="images/galeri_2.jpg"/>
 </div>
 <div class="aspect-[4/3] bg-neutral-800 overflow-hidden group">
-<img alt="Rollwerk Galerie 3" class="gallery-image w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 cursor-zoom-in" src="images/galeri_3.jpg"/>
+<img loading="lazy" decoding="async" alt="Rollwerk Galerie 3" class="gallery-image w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 cursor-zoom-in" src="images/galeri_3.jpg"/>
 </div>
 <div class="aspect-[4/3] bg-neutral-800 overflow-hidden group">
-<img alt="Rollwerk Galerie 4" class="gallery-image w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 cursor-zoom-in" src="images/galeri_4.jpg"/>
+<img loading="lazy" decoding="async" alt="Rollwerk Galerie 4" class="gallery-image w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 cursor-zoom-in" src="images/galeri_4.jpg"/>
 </div>
 <div class="aspect-[4/3] bg-neutral-800 overflow-hidden group">
-<img alt="Rollwerk Galerie 5" class="gallery-image w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 cursor-zoom-in" src="images/galeri_5.jpg"/>
+<img loading="lazy" decoding="async" alt="Rollwerk Galerie 5" class="gallery-image w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 cursor-zoom-in" src="images/galeri_5.jpg"/>
 </div>
 <div class="aspect-[4/3] bg-neutral-800 overflow-hidden group">
-<img alt="Rollwerk Galerie 6" class="gallery-image w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 cursor-zoom-in" src="images/galeri_6.jpg"/>
+<img loading="lazy" decoding="async" alt="Rollwerk Galerie 6" class="gallery-image w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 cursor-zoom-in" src="images/galeri_6.jpg"/>
 </div>
 <div class="aspect-[4/3] bg-neutral-800 overflow-hidden group">
-<img alt="Rollwerk Galerie 7" class="gallery-image w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 cursor-zoom-in" src="images/galeri_7.jpg"/>
+<img loading="lazy" decoding="async" alt="Rollwerk Galerie 7" class="gallery-image w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 cursor-zoom-in" src="images/galeri_7.jpg"/>
 </div>
 <div class="aspect-[4/3] bg-neutral-800 overflow-hidden group">
-<img alt="Rollwerk Galerie 8" class="gallery-image w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 cursor-zoom-in" src="images/galeri_8.jpg"/>
+<img loading="lazy" decoding="async" alt="Rollwerk Galerie 8" class="gallery-image w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 cursor-zoom-in" src="images/galeri_8.jpg"/>
 </div>
 </div>
 </section>
 <!-- Galeri Lightbox -->
 <div class="hidden fixed inset-0 z-[9999] bg-black/90 items-center justify-center p-4" id="gallery-lightbox">
-<button aria-label="Galeriyi kapat" class="absolute top-4 right-5 sm:top-5 sm:right-6 z-20 text-white text-4xl sm:text-5xl font-light leading-none hover:text-[#D8926B] transition-colors" id="gallery-lightbox-close" type="button">×</button>
-<button aria-label="Önceki fotoğraf" class="absolute left-2 sm:left-8 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-16 sm:h-16 rounded-full bg-black/40 text-white text-3xl sm:text-5xl flex items-center justify-center hover:bg-[#D8926B] transition-colors" id="gallery-lightbox-prev" type="button">‹</button>
+<button aria-label="Galerie schließen" class="absolute top-4 right-5 sm:top-5 sm:right-6 z-20 text-white text-4xl sm:text-5xl font-light leading-none hover:text-[#D8926B] transition-colors" id="gallery-lightbox-close" type="button">×</button>
+<button aria-label="Vorheriges Foto" class="absolute left-2 sm:left-8 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-16 sm:h-16 rounded-full bg-black/40 text-white text-3xl sm:text-5xl flex items-center justify-center hover:bg-[#D8926B] transition-colors" id="gallery-lightbox-prev" type="button">‹</button>
 <img alt="" class="max-w-[92vw] max-h-[85vh] w-auto h-auto object-contain shadow-2xl select-none" id="gallery-lightbox-image" src=""/>
-<button aria-label="Sonraki fotoğraf" class="absolute right-2 sm:right-8 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-16 sm:h-16 rounded-full bg-black/40 text-white text-3xl sm:text-5xl flex items-center justify-center hover:bg-[#D8926B] transition-colors" id="gallery-lightbox-next" type="button">›</button>
+<button aria-label="Nächstes Foto" class="absolute right-2 sm:right-8 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-16 sm:h-16 rounded-full bg-black/40 text-white text-3xl sm:text-5xl flex items-center justify-center hover:bg-[#D8926B] transition-colors" id="gallery-lightbox-next" type="button">›</button>
 </div>
 <!-- 7. Kontakt & Anfahrt Bölümü -->
 <section class="w-full py-16 sm:py-20 px-4 bg-[#1F1F1F] flex flex-col items-center" id="contact">
@@ -882,7 +922,7 @@
 </footer>
 <!-- SAĞ ALT SABİT WHATSAPP İLETİŞİM BUTONU -->
 <div class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50">
-<a class="flex items-center gap-2 bg-[#25D366] hover:bg-[#20ba59] text-white p-3 sm:px-4 sm:py-3 rounded-full shadow-2xl transition-all duration-300 hover:scale-105 group font-medium text-xs tracking-wider" href="https://wa.me/4917670281593?text=Hallo%20Rollwerk%20Team!%20" rel="noopener noreferrer" target="_blank" title="WhatsApp İle İletişime Geç">
+<a class="flex items-center gap-2 bg-[#25D366] hover:bg-[#20ba59] text-white p-3 sm:px-4 sm:py-3 rounded-full shadow-2xl transition-all duration-300 hover:scale-105 group font-medium text-xs tracking-wider" href="https://wa.me/4917670281593?text=Hallo%20Rollwerk%20Team!%20" rel="noopener noreferrer" target="_blank" title="Rollwerk über WhatsApp kontaktieren">
 <svg class="w-5 h-5 fill-current" viewbox="0 0 24 24">
 <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"></path>
 </svg>
@@ -910,8 +950,8 @@
                 </p>
 <p class="font-semibold text-white pt-2">Umsatzsteuer-ID:</p>
 <p>Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz: Wird nach Zuteilung durch das Finanzamt ergänzt.</p>
-<p class="font-semibold text-white pt-2">EU-Streitschlichtung:</p>
-<p>Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung bereit: https://ec.europa.eu/consumers/odr/. Wir sind nicht verpflichtet oder bereit, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+<p class="font-semibold text-white pt-2">Streitbeilegung:</p>
+<p>Wir sind nicht verpflichtet oder bereit, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
 </div>
 </div>
 </div>
@@ -949,7 +989,7 @@
     const title = card.querySelector('[data-menu-name]');
     if (title) title.textContent = item.name;
     const image = card.querySelector('[data-menu-image]');
-    if (image) { image.src = item.image; image.alt = item.name; }
+    if (image) { if (image.getAttribute("src") !== item.image) image.src = item.image; image.alt = item.name; }
     const desc = card.querySelector('[data-menu-description]');
     if (desc) desc.textContent = item.description;
     const p = card.querySelector('[data-menu-price]');
@@ -975,13 +1015,20 @@
 })();
 </script><script>
         const translations = {
-            "SPRACHE": ["SPRACHE", "LANGUAGE", "DİL", "ЯЗЫK", "اللغة", "语言"],
+            "SPRACHE": ["SPRACHE", "LANGUAGE", "DİL", "ЯЗЫК", "اللغة", "语言"],
+            "Rollwerk über WhatsApp kontaktieren": ["Rollwerk über WhatsApp kontaktieren", "Contact Rollwerk via WhatsApp", "Rollwerk ile WhatsApp üzerinden iletişime geç", "Связаться с Rollwerk через WhatsApp", "تواصل مع Rollwerk عبر واتساب", "通过 WhatsApp 联系 Rollwerk"],
+            "Galerie schließen": ["Galerie schließen", "Close gallery", "Galeriyi kapat", "Закрыть галерею", "إغلاق معرض الصور", "关闭画廊"],
+            "Vorheriges Foto": ["Vorheriges Foto", "Previous photo", "Önceki fotoğraf", "Предыдущее фото", "الصورة السابقة", "上一张照片"],
+            "Nächstes Foto": ["Nächstes Foto", "Next photo", "Sonraki fotoğraf", "Следующее фото", "الصورة التالية", "下一张照片"],
             "STARTSEITE": ["STARTSEITE", "HOME", "ANA SAYFA", "ГЛАВНАЯ", "الرئيسية", "首页"],
             "SPEISEKARTE": ["SPEISEKARTE", "MENU", "MENÜ", "МЕНЮ", "قائمة الطعام", "菜单"],
             "UNSER LADEN": ["UNSER LADEN", "OUR PLACE", "MEKÂNIMIZ", "НАШЕ ЗАВЕДЕНИЕ", "مطعمنا", "关于我们"],
             "GALERIE": ["GALERIE", "GALLERY", "GALERİ", "ГАЛЕРЕЯ", "معرض الصور", "画廊"],
             "KONTAKT": ["KONTAKT", "CONTACT", "İLETİŞİM", "КОНТАКТЫ", "اتصل بنا", "联系我们"],
             "FRISCH · BUNT · ECHT": ["FRISCH · BUNT · ECHT", "FRESH · COLORFUL · AUTHENTIC", "TAZE · RENKLİ · ÖZGÜN", "СВЕЖО · ЯРКО · НАСТОЯЩЕЕ", "طازج · ملون · أصيل", "新鲜 · 丰富 · 地道"],
+            "FRISCH": ["FRISCH", "FRESH", "TAZE", "СВЕЖО", "طازج", "新鲜"],
+            "BUNT": ["BUNT", "COLORFUL", "RENKLİ", "ЯРКО", "ملون", "丰富"],
+            "ECHT": ["ECHT", "AUTHENTIC", "ÖZGÜN", "НАСТОЯЩЕЕ", "أصيل", "地道"],
             "Öffnungszeiten": ["Öffnungszeiten", "Opening Hours", "Çalışma Saatleri", "Часы работы", "ساعات العمل", "营业时间"],
             "Montag bis Sonntag: 11:00 bis 20:00 Uhr": ["Montag bis Sonntag: 11:00 bis 20:00 Uhr", "Monday to Sunday: 11:00 AM–8:00 PM", "Pazartesi–Pazar: 11.00–20.00", "Понедельник — Воскресенье: 11:00–20:00", "الإثنين إلى الأحد: 11:00–20:00", "周一至周日: 11:00–20:00"],
             "Samstag und Sonntag: 12:00 bis 22:00 Uhr": ["Samstag und Sonntag: 12:00 bis 22:00 Uhr", "Saturday and Sunday: 12:00 PM to 10:00 PM", "Cumartesi–Pazar: 12.00–22.00", "Суббота и Воскресенье: 12:00 – 22:00", "السبت والأحد: 12:00 - 22:00", "周六至周日: 12:00 - 22:00"],
@@ -1017,7 +1064,7 @@
             "ROLLI – HÄHNCHEN": ["ROLLI – HÄHNCHEN", "ROLLI – CHICKEN", "ROLLI – TAVUK", "РОЛЛИ – КУРИЦА", "رولي – دجاج", "ROLLI – 鸡肉"],
             "Rolli Hähnchen": ["Rolli Hähnchen", "Chicken Tantuni", "Tavuk Tantuni", "Куриный Rolli", "رولي دجاج", "鸡肉ROLLI"],
             "In Filoteig oder Brot. Zartes Hähnchenfleisch, Tomaten, Zwiebeln, gemischter Salat, Salatgewürze und Sumach.": [
-                "In Filoteig veya Brot. Zartes Hähnchenfleisch, Tomaten, Zwiebeln, gemischter Salat, Salatgewürze und Sumach.",
+                "In Filoteig oder Brot. Zartes Hähnchenfleisch, Tomaten, Zwiebeln, gemischter Salat, Salatgewürze und Sumach.",
                 "In wrap or bread. Tender chicken, tomatoes, onions, mixed salad, salad spices and sumac.",
                 "Lavaş veya ekmekte: İnce doğranmış tavuk eti, domates, soğan, karışık salata, salata baharatları ve sumak.",
                 "В лаваше или хлебе. Нежное куриное филе, помидоры, лук, микс-салат, специи и сумах.",
@@ -1026,8 +1073,8 @@
             ],
             "ROLLI – RIND": ["ROLLI – RIND", "ROLLI – BEEF", "ROLLI – DANA ETİ", "РОЛЛИ – ГОВЯДИНА", "رولي – لحم بقري", "ROLLI – 牛肉"],
             "Rolli Rind": ["Rolli Rind", "Beef Tantuni", "Et Tantuni", "Говяжий Rolli", "رولي لحم", "牛肉ROLLI"],
-            "In Filoteig veya Brot. Feines Rindfleisch, Tomaten, Zwiebeln, gemischter Salat, Salatgewürze und Sumach.": [
-                "In Filoteig veya Brot. Feines Rindfleisch, Tomaten, Zwiebeln, gemischter Salat, Salatgewürze und Sumach.",
+            "In Filoteig oder Brot. Feines Rindfleisch, Tomaten, Zwiebeln, gemischter Salat, Salatgewürze und Sumach.": [
+                "In Filoteig oder Brot. Feines Rindfleisch, Tomaten, Zwiebeln, gemischter Salat, Salatgewürze und Sumach.",
                 "In wrap or bread. Tender beef, tomatoes, onions, mixed salad, salad spices and sumac.",
                 "Lavaş veya ekmekte: İnce doğranmış dana eti, domates, soğan, karışık salata, salata baharatları ve sumak.",
                 "В лаваше или хлебе. Отборная говядина, помидоры, лук, микс-салат, специи и сумах.",
@@ -1200,10 +1247,890 @@
             ],
             "Menü öffnen": ["Menü öffnen", "Open menu", "Menüyü aç", "Открыть меню", "فتح القائمة", "打开菜单"],
             "Rollwerk Restaurant": ["Rollwerk Restaurant", "Rollwerk Restaurant", "Rollwerk Restoranı", "Ресторан Rollwerk", "مطعم Rollwerk", "Rollwerk 餐厅"],
-            "Rollwerk Weimar Standort": ["Rollwerk Weimar Standort", "Rollwerk Weimar Location", "Rollwerk Weimar Konumu", "Расположение Rollwerk Weimar", "موقع Rollwerk فايمار", "Rollwerk 魏玛店地址"]
+            "Rollwerk Weimar Standort": ["Rollwerk Weimar Standort", "Rollwerk Weimar Location", "Rollwerk Weimar Konumu", "Расположение Rollwerk Weimar", "موقع Rollwerk فايمار", "Rollwerk 魏玛店地址"],
+
+            "Schließen": ["Schließen", "Close", "Kapat", "Закрыть", "إغلاق", "关闭"],
+            "ZUTATEN & DETAILS": ["ZUTATEN & DETAILS", "INGREDIENTS & DETAILS", "İÇERİK & DETAYLAR", "ИНГРЕДИЕНТЫ И ДЕТАЛИ", "المكونات والتفاصيل", "配料与详情"],
+            "AUSWAHL": ["AUSWAHL", "CHOICE", "SEÇİM", "ВЫБОР", "الاختيار", "选择"],
+            "ALLERGENE & HINWEISE": ["ALLERGENE & HINWEISE", "ALLERGENS & NOTES", "ALERJENLER & NOTLAR", "АЛЛЕРГЕНЫ И ПРИМЕЧАНИЯ", "مسببات الحساسية والملاحظات", "过敏原与说明"],
+            "Nur Abholung im Laden": ["Nur Abholung im Laden", "Pickup in store only", "Yalnızca dükkândan teslim", "Только самовывоз из заведения", "الاستلام من المحل فقط", "仅限到店自取"],
+            "Vegetarisch": ["Vegetarisch", "Vegetarian", "Vejetaryen", "Вегетарианское", "نباتي", "素食"],
+            "Vegan möglich": ["Vegan möglich", "Vegan option", "Vegan seçeneği", "Возможен веганский вариант", "خيار نباتي صرف متاح", "可选纯素"],
+            "Vegan": ["Vegan", "Vegan", "Vegan", "Веганское", "نباتي صرف", "纯素"],
+            "Keine Angabe": ["Keine Angabe", "No information", "Bilgi yok", "Нет данных", "لا توجد معلومات", "暂无信息"],
+            "Angaben gemäß § 5 DDG:": ["Angaben gemäß § 5 DDG:", "Information pursuant to Section 5 DDG:", "§ 5 DDG kapsamında bilgiler:", "Сведения согласно § 5 DDG:", "بيانات وفقًا للمادة 5 من DDG:", "根据 DDG 第5条的信息："],
+            "Inhaber: Çağlar Ekinci": ["Inhaber: Çağlar Ekinci", "Owner: Çağlar Ekinci", "İşletme sahibi: Çağlar Ekinci", "Владелец: Çağlar Ekinci", "المالك: Çağlar Ekinci", "负责人：Çağlar Ekinci"],
+            "Deutschland": ["Deutschland", "Germany", "Almanya", "Германия", "ألمانيا", "德国"],
+            "Kontakt:": ["Kontakt:", "Contact:", "İletişim:", "Контакты:", "التواصل:", "联系方式："],
+            "Umsatzsteuer-ID:": ["Umsatzsteuer-ID:", "VAT ID:", "KDV Kimlik No:", "Идентификационный номер НДС:", "رقم ضريبة القيمة المضافة:", "增值税识别号："],
+            "Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz: Wird nach Zuteilung durch das Finanzamt ergänzt.": ["Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz: Wird nach Zuteilung durch das Finanzamt ergänzt.", "VAT identification number pursuant to Section 27a of the German VAT Act: Will be added once assigned by the tax office.", "Alman KDV Kanunu § 27a uyarınca KDV kimlik numarası: Vergi dairesi tarafından tahsis edildikten sonra eklenecektir.", "Идентификационный номер НДС согласно § 27a Закона Германии о НДС: будет добавлен после присвоения налоговой службой.", "رقم تعريف ضريبة القيمة المضافة وفقًا للمادة 27a من قانون ضريبة القيمة المضافة الألماني: سيُضاف بعد تخصيصه من مكتب الضرائب.", "根据德国《增值税法》第27a条的增值税识别号：税务局分配后补充。"],
+            "Streitbeilegung:": ["Streitbeilegung:", "Dispute resolution:", "Uyuşmazlık çözümü:", "Разрешение споров:", "تسوية النزاعات:", "争议解决："],
+            "Wir sind nicht verpflichtet oder bereit, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.": ["Wir sind nicht verpflichtet oder bereit, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.", "We are neither obliged nor willing to participate in dispute resolution proceedings before a consumer arbitration board.", "Bir tüketici hakem heyeti önündeki uyuşmazlık çözüm sürecine katılmakla yükümlü değiliz ve katılmaya hazır değiliz.", "Мы не обязаны и не готовы участвовать в процедурах разрешения споров в потребительском арбитражном органе.", "لسنا ملزمين ولا مستعدين للمشاركة في إجراءات تسوية النزاعات أمام هيئة تحكيم للمستهلكين.", "我们没有义务，也不愿参加消费者仲裁机构的争议解决程序。"],
+            "Datenschutzerklärung": ["Datenschutzerklärung", "Privacy Policy", "Gizlilik Politikası", "Политика конфиденциальности", "سياسة الخصوصية", "隐私政策"],
+            "1. Datenschutz auf einen Blick": ["1. Datenschutz auf einen Blick", "1. Privacy at a glance", "1. Kısaca gizlilik", "1. Кратко о защите данных", "1. لمحة عن حماية البيانات", "1. 隐私概览"],
+            "Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten passiert, wenn Sie diese Website besuchen.": ["Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten passiert, wenn Sie diese Website besuchen.", "The following information provides a simple overview of what happens to your personal data when you visit this website.", "Aşağıdaki bilgiler, bu web sitesini ziyaret ettiğinizde kişisel verilerinize ne olduğuna dair basit bir genel bakış sunar.", "Следующая информация даёт простой обзор того, что происходит с вашими персональными данными при посещении этого сайта.", "تقدم المعلومات التالية نظرة مبسطة عمّا يحدث لبياناتك الشخصية عند زيارة هذا الموقع.", "以下信息简要说明您访问本网站时，您的个人数据会发生什么。"],
+            "2. Verantwortliche Stelle": ["2. Verantwortliche Stelle", "2. Responsible entity", "2. Sorumlu birim", "2. Ответственное лицо", "2. الجهة المسؤولة", "2. 责任主体"],
+            "ROLLWERK, Inhaber: Çağlar Ekinci, Frauenplan 9, 99423 Weimar. E-Mail: info@rollwerk-weimar.de. Telefon: +49 176 70281593.": ["ROLLWERK, Inhaber: Çağlar Ekinci, Frauenplan 9, 99423 Weimar. E-Mail: info@rollwerk-weimar.de. Telefon: +49 176 70281593.", "ROLLWERK, Owner: Çağlar Ekinci, Frauenplan 9, 99423 Weimar. Email: info@rollwerk-weimar.de. Phone: +49 176 70281593.", "ROLLWERK, İşletme sahibi: Çağlar Ekinci, Frauenplan 9, 99423 Weimar. E-posta: info@rollwerk-weimar.de. Telefon: +49 176 70281593.", "ROLLWERK, владелец: Çağlar Ekinci, Frauenplan 9, 99423 Weimar. Эл. почта: info@rollwerk-weimar.de. Телефон: +49 176 70281593.", "ROLLWERK، المالك: Çağlar Ekinci، Frauenplan 9، 99423 Weimar. البريد الإلكتروني: info@rollwerk-weimar.de. الهاتف: +49 176 70281593.", "ROLLWERK，负责人：Çağlar Ekinci，Frauenplan 9，99423 Weimar。电子邮箱：info@rollwerk-weimar.de。电话：+49 176 70281593。"],
+            "3. Datenerfassung auf dieser Website": ["3. Datenerfassung auf dieser Website", "3. Data collection on this website", "3. Bu web sitesinde veri toplama", "3. Сбор данных на этом сайте", "3. جمع البيانات على هذا الموقع", "3. 本网站的数据收集"],
+            "Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem Anfrageformular inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage bei uns gespeichert.": ["Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem Anfrageformular inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage bei uns gespeichert.", "If you send us inquiries via the contact form, the information you provide in the form, including your contact details, will be stored by us for the purpose of processing your inquiry.", "İletişim formu üzerinden bize talep gönderdiğinizde, formda verdiğiniz bilgiler ve iletişim bilgileriniz talebinizi işlemek amacıyla tarafımızca saklanır.", "Если вы отправляете нам запрос через контактную форму, указанные вами данные, включая контактную информацию, сохраняются нами для обработки запроса.", "إذا أرسلت إلينا استفسارًا عبر نموذج التواصل، فسيتم حفظ المعلومات التي أدخلتها، بما في ذلك بيانات الاتصال، بهدف معالجة استفسارك.", "如果您通过联系表单向我们发送咨询，我们会保存您在表单中填写的信息（包括联系方式），以便处理您的咨询。"],
+            "4. Externe Dienste und Inhalte": ["4. Externe Dienste und Inhalte", "4. External services and content", "4. Harici hizmetler ve içerikler", "4. Внешние сервисы и контент", "4. الخدمات والمحتويات الخارجية", "4. 外部服务与内容"],
+            "Diese Seite nutzt über eine Schnittstelle den Kartendienst Google Maps. Anbieter ist die Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland.": ["Diese Seite nutzt über eine Schnittstelle den Kartendienst Google Maps. Anbieter ist die Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland.", "This website uses the Google Maps service via an interface. The provider is Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland.", "Bu site, bir arayüz üzerinden Google Maps harita hizmetini kullanır. Sağlayıcı Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, İrlanda'dır.", "Этот сайт использует картографический сервис Google Maps через интерфейс. Поставщик: Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland.", "يستخدم هذا الموقع خدمة خرائط Google Maps عبر واجهة. المزود هو Google Ireland Limited، Gordon House، Barrow Street، Dublin 4، Ireland.", "本网站通过接口使用 Google Maps 地图服务。服务提供商为 Google Ireland Limited，地址：Gordon House, Barrow Street, Dublin 4, Ireland。"]
         };
 
         const languageCodes = { de: 0, en: 1, tr: 2, ru: 3, ar: 4, zh: 5 };
+
+        let currentLanguage = 'de';
+        const menuLocalizations = {
+            "rolli-1": {
+                        "en": {
+                                    "name": "ROLLI – BEEF",
+                                    "description": "In filo wrap or bread. Tender beef, tomatoes, onions, mixed salad, salad seasoning and sumac.",
+                                    "allergens": "A (gluten-containing cereals/wheat)",
+                                    "options": "Choice: filo wrap or traditional bread"
+                        },
+                        "tr": {
+                                    "name": "ROLLI – DANA ETİ",
+                                    "description": "Yufka veya ekmek içinde. İnce dana eti, domates, soğan, karışık salata, salata baharatları ve sumak.",
+                                    "allergens": "A (gluten içeren tahıllar/buğday)",
+                                    "options": "Seçim: yufka dürüm veya geleneksel ekmek"
+                        },
+                        "ru": {
+                                    "name": "РОЛЛИ – ГОВЯДИНА",
+                                    "description": "В тесте фило или хлебе. Нежная говядина, помидоры, лук, смешанный салат, специи для салата и сумах.",
+                                    "allergens": "A (злаки, содержащие глютен/пшеница)",
+                                    "options": "Выбор: ролл из теста фило или традиционный хлеб"
+                        },
+                        "ar": {
+                                    "name": "رولي – لحم بقري",
+                                    "description": "في رقائق الفيلو أو الخبز. لحم بقري طري، طماطم، بصل، سلطة مشكلة، بهارات السلطة وسماق.",
+                                    "allergens": "A (حبوب تحتوي على الغلوتين/قمح)",
+                                    "options": "الاختيار: لفافة فيلو أو خبز تقليدي"
+                        },
+                        "zh": {
+                                    "name": "ROLLI – 牛肉",
+                                    "description": "可选菲洛薄饼卷或面包。嫩牛肉、番茄、洋葱、混合沙拉、沙拉香料和漆树粉。",
+                                    "allergens": "A（含麸质谷物/小麦）",
+                                    "options": "选择：菲洛薄饼卷或传统面包"
+                        }
+            },
+            "rolli-2": {
+                        "en": {
+                                    "name": "ROLLI – CHICKEN",
+                                    "description": "In filo wrap or bread. Tender chicken, tomatoes, onions, mixed salad, salad seasoning and sumac.",
+                                    "allergens": "A (gluten-containing cereals/wheat)",
+                                    "options": "Choice: filo wrap or traditional bread"
+                        },
+                        "tr": {
+                                    "name": "ROLLI – TAVUK",
+                                    "description": "Yufka veya ekmek içinde. Yumuşak tavuk eti, domates, soğan, karışık salata, salata baharatları ve sumak.",
+                                    "allergens": "A (gluten içeren tahıllar/buğday)",
+                                    "options": "Seçim: yufka dürüm veya geleneksel ekmek"
+                        },
+                        "ru": {
+                                    "name": "РОЛЛИ – КУРИЦА",
+                                    "description": "В тесте фило или хлебе. Нежная курица, помидоры, лук, смешанный салат, специи для салата и сумах.",
+                                    "allergens": "A (злаки, содержащие глютен/пшеница)",
+                                    "options": "Выбор: ролл из теста фило или традиционный хлеб"
+                        },
+                        "ar": {
+                                    "name": "رولي – دجاج",
+                                    "description": "في رقائق الفيلو أو الخبز. دجاج طري، طماطم، بصل، سلطة مشكلة، بهارات السلطة وسماق.",
+                                    "allergens": "A (حبوب تحتوي على الغلوتين/قمح)",
+                                    "options": "الاختيار: لفافة فيلو أو خبز تقليدي"
+                        },
+                        "zh": {
+                                    "name": "ROLLI – 鸡肉",
+                                    "description": "可选菲洛薄饼卷或面包。嫩鸡肉、番茄、洋葱、混合沙拉、沙拉香料和漆树粉。",
+                                    "allergens": "A（含麸质谷物/小麦）",
+                                    "options": "选择：菲洛薄饼卷或传统面包"
+                        }
+            },
+            "falafel-1": {
+                        "en": {
+                                    "name": "FALAFEL PLATTER 1 – BEETROOT & GINGER (SPICY) (6 PCS)",
+                                    "description": "6 falafels with beetroot and ginger, mixed salad, sweet potato fries, grilled halloumi, almonds, sumac and a sauce of your choice.",
+                                    "allergens": "G (milk/lactose), H (almonds), K (sesame)",
+                                    "options": "Choose your sauce"
+                        },
+                        "tr": {
+                                    "name": "FALAFEL TABAĞI 1 – PANCAR & ZENCEFİL (BAHARATLI) (6 ADET)",
+                                    "description": "Pancar ve zencefilli 6 falafel, karışık salata, tatlı patates kızartması, ızgara hellim, badem, sumak ve seçtiğiniz sos.",
+                                    "allergens": "G (süt/laktoz), H (badem), K (susam)",
+                                    "options": "Sosunu seç"
+                        },
+                        "ru": {
+                                    "name": "ТАРЕЛКА ФАЛАФЕЛЯ 1 – СВЁКЛА И ИМБИРЬ (ПРЯНЫЙ) (6 ШТ.)",
+                                    "description": "6 фалафелей со свёклой и имбирём, смешанный салат, батат фри, жареный халлуми, миндаль, сумах и соус на выбор.",
+                                    "allergens": "G (молоко/лактоза), H (миндаль), K (кунжут)",
+                                    "options": "Выберите соус"
+                        },
+                        "ar": {
+                                    "name": "طبق فلافل 1 – شمندر وزنجبيل (متبّل) (6 قطع)",
+                                    "description": "6 قطع فلافل بالشمندر والزنجبيل، سلطة مشكلة، بطاطا حلوة مقلية، حلوم مشوي، لوز، سماق وصلصة من اختيارك.",
+                                    "allergens": "G (حليب/لاكتوز)، H (لوز)، K (سمسم)",
+                                    "options": "اختر الصلصة"
+                        },
+                        "zh": {
+                                    "name": "法拉费拼盘 1 – 甜菜根与姜（香辣）（6个）",
+                                    "description": "6个甜菜根与姜风味法拉费，配混合沙拉、红薯薯条、烤哈罗米奶酪、杏仁、漆树粉和自选酱料。",
+                                    "allergens": "G（牛奶/乳糖）、H（杏仁）、K（芝麻）",
+                                    "options": "选择酱料"
+                        }
+            },
+            "falafel-2": {
+                        "en": {
+                                    "name": "FALAFEL PLATTER 2 – EDAMAME & PEAS (FRESH HERBS) (6 PCS)",
+                                    "description": "6 falafels with edamame, peas and fresh herbs, mixed salad, sweet potato fries, grilled halloumi, almonds, sumac and a sauce of your choice.",
+                                    "allergens": "G (milk/lactose), H (almonds), K (sesame)",
+                                    "options": "Choose your sauce"
+                        },
+                        "tr": {
+                                    "name": "FALAFEL TABAĞI 2 – EDAMAME & BEZELYE (TAZE OTLU) (6 ADET)",
+                                    "description": "Edamame, bezelye ve taze otlu 6 falafel, karışık salata, tatlı patates kızartması, ızgara hellim, badem, sumak ve seçtiğiniz sos.",
+                                    "allergens": "G (süt/laktoz), H (badem), K (susam)",
+                                    "options": "Sosunu seç"
+                        },
+                        "ru": {
+                                    "name": "ТАРЕЛКА ФАЛАФЕЛЯ 2 – ЭДАМАМЭ И ГОРОШЕК (СВЕЖАЯ ЗЕЛЕНЬ) (6 ШТ.)",
+                                    "description": "6 фалафелей с эдамамэ, горошком и свежей зеленью, смешанный салат, батат фри, жареный халлуми, миндаль, сумах и соус на выбор.",
+                                    "allergens": "G (молоко/лактоза), H (миндаль), K (кунжут)",
+                                    "options": "Выберите соус"
+                        },
+                        "ar": {
+                                    "name": "طبق فلافل 2 – إدامامي وبازلاء (أعشاب طازجة) (6 قطع)",
+                                    "description": "6 قطع فلافل بالإدامامي والبازلاء والأعشاب الطازجة، سلطة مشكلة، بطاطا حلوة مقلية، حلوم مشوي، لوز، سماق وصلصة من اختيارك.",
+                                    "allergens": "G (حليب/لاكتوز)، H (لوز)، K (سمسم)",
+                                    "options": "اختر الصلصة"
+                        },
+                        "zh": {
+                                    "name": "法拉费拼盘 2 – 毛豆与豌豆（清新香草）（6个）",
+                                    "description": "6个毛豆、豌豆与新鲜香草风味法拉费，配混合沙拉、红薯薯条、烤哈罗米奶酪、杏仁、漆树粉和自选酱料。",
+                                    "allergens": "G（牛奶/乳糖）、H（杏仁）、K（芝麻）",
+                                    "options": "选择酱料"
+                        }
+            },
+            "falafel-3": {
+                        "en": {
+                                    "name": "FALAFEL PLATTER 3 – HARISSA & PEPPER (SPICY) (6 PCS)",
+                                    "description": "6 falafels with grilled pepper and harissa seasoning, mixed salad, sweet potato fries, grilled halloumi, almonds, sumac and a sauce of your choice.",
+                                    "allergens": "G (milk/lactose), H (almonds), K (sesame)",
+                                    "options": "Choose your sauce"
+                        },
+                        "tr": {
+                                    "name": "FALAFEL TABAĞI 3 – HARISSA & BİBER (ACI) (6 ADET)",
+                                    "description": "Izgara biber ve harissa baharatlı 6 falafel, karışık salata, tatlı patates kızartması, ızgara hellim, badem, sumak ve seçtiğiniz sos.",
+                                    "allergens": "G (süt/laktoz), H (badem), K (susam)",
+                                    "options": "Sosunu seç"
+                        },
+                        "ru": {
+                                    "name": "ТАРЕЛКА ФАЛАФЕЛЯ 3 – ХАРИССА И ПЕРЕЦ (ОСТРЫЙ) (6 ШТ.)",
+                                    "description": "6 фалафелей с жареным перцем и приправой харисса, смешанный салат, батат фри, жареный халлуми, миндаль, сумах и соус на выбор.",
+                                    "allergens": "G (молоко/лактоза), H (миндаль), K (кунжут)",
+                                    "options": "Выберите соус"
+                        },
+                        "ar": {
+                                    "name": "طبق فلافل 3 – هريسة وفلفل (حار) (6 قطع)",
+                                    "description": "6 قطع فلافل بالفلفل المشوي وتوابل الهريسة، سلطة مشكلة، بطاطا حلوة مقلية، حلوم مشوي، لوز، سماق وصلصة من اختيارك.",
+                                    "allergens": "G (حليب/لاكتوز)، H (لوز)، K (سمسم)",
+                                    "options": "اختر الصلصة"
+                        },
+                        "zh": {
+                                    "name": "法拉费拼盘 3 – 哈里萨辣酱与甜椒（辣）（6个）",
+                                    "description": "6个烤甜椒与哈里萨香料风味法拉费，配混合沙拉、红薯薯条、烤哈罗米奶酪、杏仁、漆树粉和自选酱料。",
+                                    "allergens": "G（牛奶/乳糖）、H（杏仁）、K（芝麻）",
+                                    "options": "选择酱料"
+                        }
+            },
+            "falafel-4": {
+                        "en": {
+                                    "name": "FALAFEL (WRAP OR BREAD)",
+                                    "description": "Crispy falafel with fresh salad and a sauce of your choice: yogurt, avocado, hummus or curry.",
+                                    "allergens": "A (gluten/wheat), K (sesame), G (milk with yogurt sauce)",
+                                    "options": "Choose: wrap or bread · Choose your sauce"
+                        },
+                        "tr": {
+                                    "name": "FALAFEL (DÜRÜM VEYA EKMEK)",
+                                    "description": "Taze salata ve seçtiğiniz sosla çıtır falafel: yoğurt, avokado, humus veya köri.",
+                                    "allergens": "A (gluten/buğday), K (susam), G (yoğurt sosunda süt)",
+                                    "options": "Seçim: dürüm veya ekmek · Sosunu seç"
+                        },
+                        "ru": {
+                                    "name": "ФАЛАФЕЛЬ (ЛАВАШ ИЛИ ХЛЕБ)",
+                                    "description": "Хрустящий фалафель со свежим салатом и соусом на выбор: йогуртовым, авокадо, хумусом или карри.",
+                                    "allergens": "A (глютен/пшеница), K (кунжут), G (молоко в йогуртовом соусе)",
+                                    "options": "Выберите: лаваш или хлеб · Выберите соус"
+                        },
+                        "ar": {
+                                    "name": "فلافل (لفافة أو خبز)",
+                                    "description": "فلافل مقرمشة مع سلطة طازجة وصلصة من اختيارك: زبادي، أفوكادو، حمص أو كاري.",
+                                    "allergens": "A (غلوتين/قمح)، K (سمسم)، G (حليب في صلصة الزبادي)",
+                                    "options": "اختر: لفافة أو خبز · اختر الصلصة"
+                        },
+                        "zh": {
+                                    "name": "法拉费（卷饼或面包）",
+                                    "description": "香脆法拉费配新鲜沙拉和自选酱料：酸奶、牛油果、鹰嘴豆泥或咖喱。",
+                                    "allergens": "A（麸质/小麦）、K（芝麻）、G（酸奶酱含牛奶）",
+                                    "options": "选择：卷饼或面包 · 选择酱料"
+                        }
+            },
+            "falafel-5": {
+                        "en": {
+                                    "name": "FALAFEL BOX",
+                                    "description": "5 crispy falafel balls with one dip of your choice. Takeaway only.",
+                                    "allergens": "K (sesame), G (milk with yogurt sauce)",
+                                    "options": "Takeaway only · Includes 1 dip of your choice"
+                        },
+                        "tr": {
+                                    "name": "FALAFEL KUTUSU",
+                                    "description": "Seçtiğiniz bir dip sosla 5 çıtır falafel. Yalnızca paket.",
+                                    "allergens": "K (susam), G (yoğurt sosunda süt)",
+                                    "options": "Yalnızca paket · Seçtiğiniz 1 dip sos dahil"
+                        },
+                        "ru": {
+                                    "name": "ФАЛАФЕЛЬ БОКС",
+                                    "description": "5 хрустящих шариков фалафеля с одним дип-соусом на выбор. Только на вынос.",
+                                    "allergens": "K (кунжут), G (молоко в йогуртовом соусе)",
+                                    "options": "Только на вынос · 1 дип-соус на выбор включён"
+                        },
+                        "ar": {
+                                    "name": "علبة فلافل",
+                                    "description": "5 قطع فلافل مقرمشة مع صلصة غمس واحدة من اختيارك. للسفري فقط.",
+                                    "allergens": "K (سمسم)، G (حليب في صلصة الزبادي)",
+                                    "options": "للسفري فقط · تشمل صلصة غمس واحدة من اختيارك"
+                        },
+                        "zh": {
+                                    "name": "法拉费盒",
+                                    "description": "5个香脆法拉费球，配1份自选蘸酱。仅限外带。",
+                                    "allergens": "K（芝麻）、G（酸奶酱含牛奶）",
+                                    "options": "仅限外带 · 含1份自选蘸酱"
+                        }
+            },
+            "salate-1": {
+                        "en": {
+                                    "name": "MIXED SALAD",
+                                    "description": "Tomatoes, onions, iceberg lettuce, mixed leaf salad and aromatic sumac with homemade vinegar-and-oil dressing.",
+                                    "allergens": "No allergens requiring declaration",
+                                    "options": "Freshly prepared"
+                        },
+                        "tr": {
+                                    "name": "KARIŞIK SALATA",
+                                    "description": "Domates, soğan, iceberg marul, karışık yeşillikler ve aromatik sumak; ev yapımı sirke-zeytinyağı sosuyla.",
+                                    "allergens": "Bildirimi zorunlu alerjen içermez",
+                                    "options": "Taze hazırlanır"
+                        },
+                        "ru": {
+                                    "name": "СМЕШАННЫЙ САЛАТ",
+                                    "description": "Помидоры, лук, салат айсберг, смесь листовых салатов и ароматный сумах с домашней уксусно-масляной заправкой.",
+                                    "allergens": "Аллергены, подлежащие обязательному декларированию, отсутствуют",
+                                    "options": "Готовится свежим"
+                        },
+                        "ar": {
+                                    "name": "سلطة مشكلة",
+                                    "description": "طماطم، بصل، خس آيسبرغ، أوراق سلطة مشكلة وسماق عطري مع تتبيلة منزلية من الخل والزيت.",
+                                    "allergens": "لا توجد مسببات حساسية واجبة التصريح",
+                                    "options": "تحضّر طازجة"
+                        },
+                        "zh": {
+                                    "name": "混合沙拉",
+                                    "description": "番茄、洋葱、冰山生菜、混合叶菜和香味漆树粉，搭配自制醋油汁。",
+                                    "allergens": "无须强制标示的过敏原",
+                                    "options": "新鲜现做"
+                        }
+            },
+            "salate-2": {
+                        "en": {
+                                    "name": "FENNEL & SWEET POTATO SALAD",
+                                    "description": "Tomatoes, onions, mixed leaf salad, freshly shaved fennel and crispy sweet potato fries.",
+                                    "allergens": "No allergens requiring declaration",
+                                    "options": "Freshly prepared"
+                        },
+                        "tr": {
+                                    "name": "REZENE & TATLI PATATES SALATASI",
+                                    "description": "Domates, soğan, karışık yeşillikler, taze ince doğranmış rezene ve çıtır tatlı patates kızartması.",
+                                    "allergens": "Bildirimi zorunlu alerjen içermez",
+                                    "options": "Taze hazırlanır"
+                        },
+                        "ru": {
+                                    "name": "САЛАТ С ФЕНХЕЛЕМ И БАТАТОМ",
+                                    "description": "Помидоры, лук, смесь листовых салатов, свежий тонко нарезанный фенхель и хрустящий батат фри.",
+                                    "allergens": "Аллергены, подлежащие обязательному декларированию, отсутствуют",
+                                    "options": "Готовится свежим"
+                        },
+                        "ar": {
+                                    "name": "سلطة الشمر والبطاطا الحلوة",
+                                    "description": "طماطم، بصل، أوراق سلطة مشكلة، شمر طازج مقطع شرائح رفيعة وبطاطا حلوة مقرمشة.",
+                                    "allergens": "لا توجد مسببات حساسية واجبة التصريح",
+                                    "options": "تحضّر طازجة"
+                        },
+                        "zh": {
+                                    "name": "茴香与红薯沙拉",
+                                    "description": "番茄、洋葱、混合叶菜、新鲜刨切茴香和香脆红薯薯条。",
+                                    "allergens": "无须强制标示的过敏原",
+                                    "options": "新鲜现做"
+                        }
+            },
+            "salate-3": {
+                        "en": {
+                                    "name": "MEDITERRANEAN SALAD",
+                                    "description": "Fresh mixed leaf salad, sun-ripened black olives and fine shepherd’s cheese made from cow’s milk.",
+                                    "allergens": "G (milk/lactose)",
+                                    "options": "Freshly prepared"
+                        },
+                        "tr": {
+                                    "name": "AKDENİZ SALATASI",
+                                    "description": "Taze karışık yeşillikler, olgun siyah zeytin ve inek sütünden yapılmış beyaz peynir.",
+                                    "allergens": "G (süt/laktoz)",
+                                    "options": "Taze hazırlanır"
+                        },
+                        "ru": {
+                                    "name": "СРЕДИЗЕМНОМОРСКИЙ САЛАТ",
+                                    "description": "Свежая смесь листовых салатов, спелые чёрные оливки и нежный рассольный сыр из коровьего молока.",
+                                    "allergens": "G (молоко/лактоза)",
+                                    "options": "Готовится свежим"
+                        },
+                        "ar": {
+                                    "name": "سلطة البحر المتوسط",
+                                    "description": "أوراق سلطة طازجة مشكلة، زيتون أسود ناضج وجبن أبيض طري مصنوع من حليب البقر.",
+                                    "allergens": "G (حليب/لاكتوز)",
+                                    "options": "تحضّر طازجة"
+                        },
+                        "zh": {
+                                    "name": "地中海沙拉",
+                                    "description": "新鲜混合叶菜、成熟黑橄榄和由牛奶制成的细腻白奶酪。",
+                                    "allergens": "G（牛奶/乳糖）",
+                                    "options": "新鲜现做"
+                        }
+            },
+            "salate-4": {
+                        "en": {
+                                    "name": "HALLOUMI & SWEET POTATO SALAD",
+                                    "description": "Mixed leaf salad with crispy sweet potato fries and golden-grilled Cypriot halloumi cubes.",
+                                    "allergens": "G (milk/lactose)",
+                                    "options": "Freshly prepared"
+                        },
+                        "tr": {
+                                    "name": "HELLİM & TATLI PATATES SALATASI",
+                                    "description": "Karışık yeşillikler, çıtır tatlı patates kızartması ve altın renginde ızgara Kıbrıs hellim küpleri.",
+                                    "allergens": "G (süt/laktoz)",
+                                    "options": "Taze hazırlanır"
+                        },
+                        "ru": {
+                                    "name": "САЛАТ С ХАЛЛУМИ И БАТАТОМ",
+                                    "description": "Смесь листовых салатов с хрустящим бататом фри и золотистыми кубиками кипрского халлуми на гриле.",
+                                    "allergens": "G (молоко/лактоза)",
+                                    "options": "Готовится свежим"
+                        },
+                        "ar": {
+                                    "name": "سلطة الحلوم والبطاطا الحلوة",
+                                    "description": "أوراق سلطة مشكلة مع بطاطا حلوة مقرمشة ومكعبات حلوم قبرصي مشوية حتى اللون الذهبي.",
+                                    "allergens": "G (حليب/لاكتوز)",
+                                    "options": "تحضّر طازجة"
+                        },
+                        "zh": {
+                                    "name": "哈罗米奶酪与红薯沙拉",
+                                    "description": "混合叶菜配香脆红薯薯条和烤至金黄的塞浦路斯哈罗米奶酪块。",
+                                    "allergens": "G（牛奶/乳糖）",
+                                    "options": "新鲜现做"
+                        }
+            },
+            "beilagen-1": {
+                        "en": {
+                                    "name": "FRENCH FRIES",
+                                    "description": "Classic crispy fries seasoned with sea salt.",
+                                    "allergens": "No allergens requiring declaration",
+                                    "options": "Ketchup or mayonnaise on request"
+                        },
+                        "tr": {
+                                    "name": "PATATES KIZARTMASI",
+                                    "description": "Deniz tuzuyla lezzetlendirilmiş klasik çıtır patates kızartması.",
+                                    "allergens": "Bildirimi zorunlu alerjen içermez",
+                                    "options": "İsteğe göre ketçap veya mayonez"
+                        },
+                        "ru": {
+                                    "name": "КАРТОФЕЛЬ ФРИ",
+                                    "description": "Классический хрустящий картофель фри, приправленный морской солью.",
+                                    "allergens": "Аллергены, подлежащие обязательному декларированию, отсутствуют",
+                                    "options": "Кетчуп или майонез по желанию"
+                        },
+                        "ar": {
+                                    "name": "بطاطس مقلية",
+                                    "description": "بطاطس مقلية كلاسيكية مقرمشة متبلة بملح البحر.",
+                                    "allergens": "لا توجد مسببات حساسية واجبة التصريح",
+                                    "options": "كاتشب أو مايونيز عند الطلب"
+                        },
+                        "zh": {
+                                    "name": "炸薯条",
+                                    "description": "经典香脆薯条，以海盐调味。",
+                                    "allergens": "无须强制标示的过敏原",
+                                    "options": "可按需提供番茄酱或蛋黄酱"
+                        }
+            },
+            "saucen-1": {
+                        "en": {
+                                    "name": "HUMMUS",
+                                    "description": "Creamy chickpea dip with tahini (sesame paste), garlic and olive oil.",
+                                    "allergens": "K (sesame)",
+                                    "options": "Homemade"
+                        },
+                        "tr": {
+                                    "name": "HUMUS",
+                                    "description": "Tahin (susam ezmesi), sarımsak ve zeytinyağıyla kremamsı nohut dip sosu.",
+                                    "allergens": "K (susam)",
+                                    "options": "Ev yapımı"
+                        },
+                        "ru": {
+                                    "name": "ХУМУС",
+                                    "description": "Кремовый дип из нута с тахини (кунжутной пастой), чесноком и оливковым маслом.",
+                                    "allergens": "K (кунжут)",
+                                    "options": "Домашнего приготовления"
+                        },
+                        "ar": {
+                                    "name": "حمص",
+                                    "description": "غموس كريمي من الحمص مع الطحينة (معجون السمسم) والثوم وزيت الزيتون.",
+                                    "allergens": "K (سمسم)",
+                                    "options": "محضّر منزليًا"
+                        },
+                        "zh": {
+                                    "name": "鹰嘴豆泥",
+                                    "description": "绵密鹰嘴豆蘸酱，加入芝麻酱、大蒜和橄榄油。",
+                                    "allergens": "K（芝麻）",
+                                    "options": "自制"
+                        }
+            },
+            "saucen-2": {
+                        "en": {
+                                    "name": "YOGURT SAUCE",
+                                    "description": "Refreshing herb yogurt sauce with fine garlic and mint.",
+                                    "allergens": "G (milk/lactose)",
+                                    "options": "Homemade"
+                        },
+                        "tr": {
+                                    "name": "YOĞURT SOSU",
+                                    "description": "İnce sarımsak ve naneli ferahlatıcı otlu yoğurt sosu.",
+                                    "allergens": "G (süt/laktoz)",
+                                    "options": "Ev yapımı"
+                        },
+                        "ru": {
+                                    "name": "ЙОГУРТОВЫЙ СОУС",
+                                    "description": "Освежающий йогуртовый соус с зеленью, нежным чесноком и мятой.",
+                                    "allergens": "G (молоко/лактоза)",
+                                    "options": "Домашнего приготовления"
+                        },
+                        "ar": {
+                                    "name": "صلصة الزبادي",
+                                    "description": "صلصة زبادي منعشة بالأعشاب مع الثوم والنعناع.",
+                                    "allergens": "G (حليب/لاكتوز)",
+                                    "options": "محضّرة منزليًا"
+                        },
+                        "zh": {
+                                    "name": "酸奶酱",
+                                    "description": "清爽香草酸奶酱，加入细腻蒜香和薄荷。",
+                                    "allergens": "G（牛奶/乳糖）",
+                                    "options": "自制"
+                        }
+            },
+            "saucen-3": {
+                        "en": {
+                                    "name": "CURRY SAUCE",
+                                    "description": "Aromatic, spiced curry sauce with mild heat.",
+                                    "allergens": "G (milk/lactose), J (mustard)",
+                                    "options": "Homemade"
+                        },
+                        "tr": {
+                                    "name": "KÖRİ SOSU",
+                                    "description": "Hafif acılı, aromatik ve baharatlı köri sosu.",
+                                    "allergens": "G (süt/laktoz), J (hardal)",
+                                    "options": "Ev yapımı"
+                        },
+                        "ru": {
+                                    "name": "СОУС КАРРИ",
+                                    "description": "Ароматный пряный соус карри с лёгкой остротой.",
+                                    "allergens": "G (молоко/лактоза), J (горчица)",
+                                    "options": "Домашнего приготовления"
+                        },
+                        "ar": {
+                                    "name": "صلصة الكاري",
+                                    "description": "صلصة كاري عطرية ومتبلّة بحرارة خفيفة.",
+                                    "allergens": "G (حليب/لاكتوز)، J (خردل)",
+                                    "options": "محضّرة منزليًا"
+                        },
+                        "zh": {
+                                    "name": "咖喱酱",
+                                    "description": "香气浓郁、略带微辣的咖喱酱。",
+                                    "allergens": "G（牛奶/乳糖）、J（芥末）",
+                                    "options": "自制"
+                        }
+            },
+            "saucen-4": {
+                        "en": {
+                                    "name": "AVOCADO SAUCE",
+                                    "description": "Smooth creamy sauce made from ripe avocados with lime juice and herbs.",
+                                    "allergens": "No allergens requiring declaration",
+                                    "options": "Homemade"
+                        },
+                        "tr": {
+                                    "name": "AVOKADO SOSU",
+                                    "description": "Olgun avokado, lime suyu ve otlarla hazırlanan pürüzsüz kremamsı sos.",
+                                    "allergens": "Bildirimi zorunlu alerjen içermez",
+                                    "options": "Ev yapımı"
+                        },
+                        "ru": {
+                                    "name": "СОУС ИЗ АВОКАДО",
+                                    "description": "Нежный кремовый соус из спелого авокадо с соком лайма и зеленью.",
+                                    "allergens": "Аллергены, подлежащие обязательному декларированию, отсутствуют",
+                                    "options": "Домашнего приготовления"
+                        },
+                        "ar": {
+                                    "name": "صلصة الأفوكادو",
+                                    "description": "صلصة كريمية ناعمة من الأفوكادو الناضج مع عصير الليمون الأخضر والأعشاب.",
+                                    "allergens": "لا توجد مسببات حساسية واجبة التصريح",
+                                    "options": "محضّرة منزليًا"
+                        },
+                        "zh": {
+                                    "name": "牛油果酱",
+                                    "description": "以成熟牛油果、青柠汁和香草制成的细腻奶油状酱汁。",
+                                    "allergens": "无须强制标示的过敏原",
+                                    "options": "自制"
+                        }
+            },
+            "tagesangebote-1": {
+                        "en": {
+                                    "name": "SOUP OF THE DAY",
+                                    "description": "Freshly prepared house-style soup of the day (e.g. traditional red lentil soup, Mercimek).",
+                                    "allergens": "A (gluten), I (celery)",
+                                    "options": "Served with fresh bread and lemon"
+                        },
+                        "tr": {
+                                    "name": "GÜNÜN ÇORBASI",
+                                    "description": "Her gün taze hazırlanan ev usulü çorba (örn. geleneksel kırmızı mercimek çorbası).",
+                                    "allergens": "A (gluten), I (kereviz)",
+                                    "options": "Taze ekmek ve limonla servis edilir"
+                        },
+                        "ru": {
+                                    "name": "СУП ДНЯ",
+                                    "description": "Свежеприготовленный домашний суп дня (например, традиционный суп из красной чечевицы мерджимек).",
+                                    "allergens": "A (глютен), I (сельдерей)",
+                                    "options": "Подаётся со свежим хлебом и лимоном"
+                        },
+                        "ar": {
+                                    "name": "شوربة اليوم",
+                                    "description": "شوربة يومية طازجة على طريقة المحل (مثل شوربة العدس الأحمر التقليدية مرجيمك).",
+                                    "allergens": "A (غلوتين)، I (كرفس)",
+                                    "options": "تقدّم مع خبز طازج وليمون"
+                        },
+                        "zh": {
+                                    "name": "今日例汤",
+                                    "description": "每日新鲜制作的家常汤（例如传统红扁豆汤 Mercimek）。",
+                                    "allergens": "A（麸质）、I（芹菜）",
+                                    "options": "配新鲜面包和柠檬"
+                        }
+            },
+            "tagesangebote-2": {
+                        "en": {
+                                    "name": "CHANGING DAILY DISH",
+                                    "description": "Fresh daily specialties from our creative kitchen. Ask at the counter about today’s offering.",
+                                    "allergens": "Ask our staff",
+                                    "options": "Only while supplies last"
+                        },
+                        "tr": {
+                                    "name": "DEĞİŞEN GÜNLÜK YEMEK",
+                                    "description": "Yaratıcı mutfağımızdan günlük taze özel lezzetler. Bugünün seçeneğini tezgahta sorabilirsiniz.",
+                                    "allergens": "Personelden bilgi alabilirsiniz",
+                                    "options": "Stoklarla sınırlıdır"
+                        },
+                        "ru": {
+                                    "name": "МЕНЯЮЩЕЕСЯ БЛЮДО ДНЯ",
+                                    "description": "Свежие ежедневные блюда нашей творческой кухни. Спросите у стойки о сегодняшнем предложении.",
+                                    "allergens": "Уточните у персонала",
+                                    "options": "Пока есть в наличии"
+                        },
+                        "ar": {
+                                    "name": "طبق يومي متغيّر",
+                                    "description": "أطباق يومية طازجة من مطبخنا المبتكر. اسأل عند الكاونتر عن عرض اليوم.",
+                                    "allergens": "اسأل الموظفين",
+                                    "options": "حتى نفاد الكمية"
+                        },
+                        "zh": {
+                                    "name": "每日更换菜品",
+                                    "description": "来自我们创意厨房的每日新鲜特色菜。欢迎在柜台询问今日供应。",
+                                    "allergens": "请咨询工作人员",
+                                    "options": "售完即止"
+                        }
+            },
+            "desserts-1": {
+                        "en": {
+                                    "name": "STRAWBERRY MAGNOLIA",
+                                    "description": "Lightly whipped vanilla pudding with biscuit crumbs and fresh sun-ripened strawberries, served in a glass.",
+                                    "allergens": "A (gluten/wheat), G (milk/lactose)",
+                                    "options": "Served chilled"
+                        },
+                        "tr": {
+                                    "name": "ÇİLEKLİ MAGNOLIA",
+                                    "description": "Bisküvi kırıntıları ve taze olgun çileklerle hazırlanmış hafif çırpılmış vanilyalı puding; bardakta servis edilir.",
+                                    "allergens": "A (gluten/buğday), G (süt/laktoz)",
+                                    "options": "Soğuk servis edilir"
+                        },
+                        "ru": {
+                                    "name": "КЛУБНИЧНАЯ МАГНОЛИЯ",
+                                    "description": "Воздушный ванильный пудинг с крошкой печенья и свежей спелой клубникой в стакане.",
+                                    "allergens": "A (глютен/пшеница), G (молоко/лактоза)",
+                                    "options": "Подаётся охлаждённым"
+                        },
+                        "ar": {
+                                    "name": "ماغنوليا بالفراولة",
+                                    "description": "بودينغ فانيليا خفيف ومخفوق مع فتات البسكويت وفراولة طازجة ناضجة، يقدّم في كوب.",
+                                    "allergens": "A (غلوتين/قمح)، G (حليب/لاكتوز)",
+                                    "options": "يقدّم باردًا"
+                        },
+                        "zh": {
+                                    "name": "草莓 MAGNOLIA",
+                                    "description": "轻盈香草布丁配饼干碎和新鲜成熟草莓，杯装呈上。",
+                                    "allergens": "A（麸质/小麦）、G（牛奶/乳糖）",
+                                    "options": "冷藏后供应"
+                        }
+            },
+            "desserts-2": {
+                        "en": {
+                                    "name": "BANANA MAGNOLIA",
+                                    "description": "Creamy vanilla pudding with banana slices and a crispy biscuit base.",
+                                    "allergens": "A (gluten/wheat), G (milk/lactose)",
+                                    "options": "Served chilled"
+                        },
+                        "tr": {
+                                    "name": "MUZLU MAGNOLIA",
+                                    "description": "Muz dilimleri ve çıtır bisküvi tabanıyla hazırlanmış kremamsı vanilyalı puding.",
+                                    "allergens": "A (gluten/buğday), G (süt/laktoz)",
+                                    "options": "Soğuk servis edilir"
+                        },
+                        "ru": {
+                                    "name": "БАНАНОВАЯ МАГНОЛИЯ",
+                                    "description": "Кремовый ванильный пудинг с ломтиками банана и хрустящей основой из печенья.",
+                                    "allergens": "A (глютен/пшеница), G (молоко/лактоза)",
+                                    "options": "Подаётся охлаждённым"
+                        },
+                        "ar": {
+                                    "name": "ماغنوليا بالموز",
+                                    "description": "بودينغ فانيليا كريمي مع شرائح الموز وقاعدة بسكويت مقرمشة.",
+                                    "allergens": "A (غلوتين/قمح)، G (حليب/لاكتوز)",
+                                    "options": "يقدّم باردًا"
+                        },
+                        "zh": {
+                                    "name": "香蕉 MAGNOLIA",
+                                    "description": "香滑香草布丁配香蕉片和香脆饼干底。",
+                                    "allergens": "A（麸质/小麦）、G（牛奶/乳糖）",
+                                    "options": "冷藏后供应"
+                        }
+            }
+};
+        const drinkLocalizations = {
+            "drink-1-1": {
+                        "en": "Draft beer (0.5 l)",
+                        "tr": "Fıçı bira (0,5 l)",
+                        "ru": "Разливное пиво (0,5 л)",
+                        "ar": "بيرة من البرميل (0.5 لتر)",
+                        "zh": "生啤（0.5升）"
+            },
+            "drink-1-2": {
+                        "en": "Draft beer (0.3 l)",
+                        "tr": "Fıçı bira (0,3 l)",
+                        "ru": "Разливное пиво (0,3 л)",
+                        "ar": "بيرة من البرميل (0.3 لتر)",
+                        "zh": "生啤（0.3升）"
+            },
+            "drink-1-3": {
+                        "en": "Efes (bottle, 0.33 l)",
+                        "tr": "Efes (şişe, 0,33 l)",
+                        "ru": "Efes (бутылка, 0,33 л)",
+                        "ar": "Efes (زجاجة، 0.33 لتر)",
+                        "zh": "Efes（瓶装，0.33升）"
+            },
+            "drink-2-1": {
+                        "en": "Benediktiner Hell alcohol-free (bottle, 0.33 l)",
+                        "tr": "Benediktiner Hell alkolsüz (şişe, 0,33 l)",
+                        "ru": "Benediktiner Hell безалкогольное (бутылка, 0,33 л)",
+                        "ar": "Benediktiner Hell خالٍ من الكحول (زجاجة، 0.33 لتر)",
+                        "zh": "Benediktiner Hell 无酒精（瓶装，0.33升）"
+            },
+            "drink-2-2": {
+                        "en": "Vita Cola Original (0.5 l)",
+                        "tr": "Vita Cola Original (0,5 l)",
+                        "ru": "Vita Cola Original (0,5 л)",
+                        "ar": "Vita Cola Original (0.5 لتر)",
+                        "zh": "Vita Cola Original（0.5升）"
+            },
+            "drink-2-3": {
+                        "en": "Vita Limo Lemon (0.5 l)",
+                        "tr": "Vita Limo Limon (0,5 l)",
+                        "ru": "Vita Limo Лимон (0,5 л)",
+                        "ar": "Vita Limo ليمون (0.5 لتر)",
+                        "zh": "Vita Limo 柠檬（0.5升）"
+            },
+            "drink-2-4": {
+                        "en": "Vita Limo Orange (0.5 l)",
+                        "tr": "Vita Limo Portakal (0,5 l)",
+                        "ru": "Vita Limo Апельсин (0,5 л)",
+                        "ar": "Vita Limo برتقال (0.5 لتر)",
+                        "zh": "Vita Limo 橙味（0.5升）"
+            },
+            "drink-2-5": {
+                        "en": "Apple spritzer",
+                        "tr": "Elma şorlesi",
+                        "ru": "Яблочный шорле",
+                        "ar": "مشروب تفاح فوار",
+                        "zh": "苹果气泡饮"
+            },
+            "drink-2-6": {
+                        "en": "Water (still / sparkling)",
+                        "tr": "Su (sade / gazlı)",
+                        "ru": "Вода (без газа / газированная)",
+                        "ar": "مياه (عادية / غازية)",
+                        "zh": "水（无气 / 气泡）"
+            },
+            "drink-2-7": {
+                        "en": "Ayran",
+                        "tr": "Ayran",
+                        "ru": "Айран",
+                        "ar": "عيران",
+                        "zh": "艾兰酸奶饮料"
+            },
+            "drink-3-1": {
+                        "en": "Filter coffee",
+                        "tr": "Filtre kahve",
+                        "ru": "Фильтр-кофе",
+                        "ar": "قهوة مفلترة",
+                        "zh": "滴滤咖啡"
+            }
+};
+
+        const uiLocale = {
+            allergenLabel: {de:'Allergene', en:'Allergens', tr:'Alerjenler', ru:'Аллергены', ar:'مسببات الحساسية', zh:'过敏原'},
+            none: {de:'Keine', en:'None', tr:'Yok', ru:'Нет', ar:'لا يوجد', zh:'无'},
+            dineIn: {de:'Im Laden', en:'Dine-in', tr:'İçeride', ru:'В заведении', ar:'في المحل', zh:'店内'},
+            takeaway: {de:'Zum Mitnehmen', en:'Takeaway', tr:'Paket', ru:'С собой', ar:'سفري', zh:'外带'},
+            type: {
+                vegan: {de:'Vegan', en:'Vegan', tr:'Vegan', ru:'Веганское', ar:'نباتي صرف', zh:'纯素'},
+                'vegan-option': {de:'Vegan möglich', en:'Vegan option', tr:'Vegan seçeneği', ru:'Возможен веганский вариант', ar:'خيار نباتي صرف متاح', zh:'可选纯素'},
+                veggie: {de:'Vegetarisch', en:'Vegetarian', tr:'Vejetaryen', ru:'Вегетарианское', ar:'نباتي', zh:'素食'}
+            }
+        };
+
+        function localizeCalories(value, language) {
+            if (!value) return '';
+            const match = String(value).match(/^ca\.\s*([0-9]+)\s*kcal$/i);
+            if (!match) return value;
+            const n = match[1];
+            const map = {de:`ca. ${n} kcal`, en:`approx. ${n} kcal`, tr:`yakl. ${n} kcal`, ru:`ок. ${n} ккал`, ar:`حوالي ${n} سعرة حرارية`, zh:`约 ${n} 千卡`};
+            return map[language] || map.de;
+        }
+
+        function localizePrice(value, language) {
+            if (!value) return '';
+            const match = String(value).match(/^Im Laden:\s*(.+?)\s*·\s*Zum Mitnehmen:\s*(.+)$/);
+            if (!match) return value;
+            const dine = uiLocale.dineIn[language] || uiLocale.dineIn.de;
+            const take = uiLocale.takeaway[language] || uiLocale.takeaway.de;
+            return `${dine}: ${match[1]} · ${take}: ${match[2]}`;
+        }
+
+        function getLocalizedMenuItem(item, language) {
+            const localized = menuLocalizations[item.id]?.[language] || {};
+            return {
+                ...item,
+                name: localized.name || item.name,
+                description: localized.description || item.description,
+                allergens: localized.allergens || item.allergens,
+                options: localized.options || item.options,
+                price: localizePrice(item.price, language),
+                calories: localizeCalories(item.calories, language)
+            };
+        }
+
+        function getTypeLabel(type, language) {
+            return uiLocale.type[type]?.[language] || uiLocale.type[type]?.de || '';
+        }
+
+        function setPriceElement(element, price) {
+            if (!element) return;
+            if (price.includes(' · ')) {
+                element.replaceChildren();
+                price.split(' · ').forEach((part, i) => {
+                    const line = document.createElement('span');
+                    line.className = 'block whitespace-nowrap' + (i ? ' text-[11px]' : '');
+                    line.textContent = part;
+                    element.appendChild(line);
+                });
+            } else {
+                element.textContent = price;
+            }
+        }
+
+        function applyMenuLanguage(language) {
+            const menu = window.ROLLWERK_MENU;
+            if (!menu) return;
+            const byId = Object.fromEntries(menu.items.map(item => [item.id, item]));
+
+            document.querySelectorAll('[data-menu-id]').forEach(card => {
+                const source = byId[card.dataset.menuId];
+                if (!source) return;
+                const item = getLocalizedMenuItem(source, language);
+
+                Object.assign(card.dataset, {
+                    title: item.name,
+                    price: item.price,
+                    img: source.image,
+                    desc: item.description,
+                    calories: item.calories,
+                    allergens: item.allergens,
+                    options: item.options,
+                    type: source.type
+                });
+
+                const title = card.querySelector('[data-menu-name]');
+                if (title) title.textContent = item.name;
+                const image = card.querySelector('[data-menu-image]');
+                if (image) image.alt = item.name;
+                const desc = card.querySelector('[data-menu-description]');
+                if (desc) desc.textContent = item.description;
+                setPriceElement(card.querySelector('[data-menu-price]'), item.price);
+
+                let calorieEl = card.querySelector('[data-menu-calories-display]');
+                if (!calorieEl) {
+                    calorieEl = Array.from(card.querySelectorAll('div, span')).find(el => !el.children.length && /(?:ca\.|kcal)/i.test(el.textContent.trim()) && /kcal/i.test(el.textContent.trim()));
+                    if (calorieEl) calorieEl.setAttribute('data-menu-calories-display', '');
+                }
+                if (calorieEl) calorieEl.textContent = item.calories;
+
+                let badge = card.querySelector('[data-menu-badge]');
+                if (!badge) {
+                    badge = Array.from(card.querySelectorAll('span')).find(el => !el.children.length && ['Vegetarisch','Vegan möglich','Vegan'].includes(el.textContent.trim()));
+                    if (badge) badge.setAttribute('data-menu-badge', '');
+                }
+                if (badge) badge.textContent = getTypeLabel(source.type, language);
+
+                let allergenSummary = card.querySelector('[data-menu-allergen-summary]');
+                if (!allergenSummary) {
+                    allergenSummary = Array.from(card.querySelectorAll('span')).find(el => !el.children.length && /^Allergene:\s*/.test(el.textContent.trim()));
+                    if (allergenSummary) allergenSummary.setAttribute('data-menu-allergen-summary', '');
+                }
+                if (allergenSummary) {
+                    const codes = Array.from(source.allergens.matchAll(/(?:^|,\s*)([A-Z])\s*\(/g), match => match[1]).join(', ');
+                    const none = /^Keine deklarationspflichtigen Allergene/i.test(source.allergens);
+                    const label = uiLocale.allergenLabel[language] || uiLocale.allergenLabel.de;
+                    allergenSummary.textContent = `${label}: ${none ? (uiLocale.none[language] || uiLocale.none.de) : codes}`;
+                }
+            });
+
+            const drinks = Object.fromEntries(menu.drinks.map(drink => [drink.id, drink]));
+            document.querySelectorAll('[data-drink-id]').forEach(line => {
+                const source = drinks[line.dataset.drinkId];
+                if (!source) return;
+                const name = drinkLocalizations[source.id]?.[language] || source.name;
+                const nameEl = line.querySelector('[data-drink-name]');
+                const priceEl = line.querySelector('[data-drink-price]');
+                if (nameEl) nameEl.textContent = name;
+                if (priceEl) priceEl.textContent = source.price;
+            });
+        }
         const textTargets = [];
         const attributeTargets = [];
 
@@ -1268,6 +2195,7 @@
 
         function setLanguage(language) {
             if (!languageCodes.hasOwnProperty(language)) language = 'de';
+            currentLanguage = language;
 
             document.documentElement.lang = language;
 
@@ -1287,6 +2215,8 @@
                 option.classList.toggle('active', isActive);
                 option.setAttribute('aria-pressed', String(isActive));
             });
+
+            applyMenuLanguage(language);
 
             try {
                 localStorage.setItem('rollwerk-language', language);
@@ -1388,23 +2318,6 @@
         }
         setLanguage(savedLanguage);
 
-        window.addEventListener('load', () => {
-            const rollwerkTitle = document.querySelector('#home h1');
-            if (!rollwerkTitle) return;
-
-            rollwerkTitle.animate(
-                [
-                    { opacity: 0, transform: 'translateY(30px) scale(0.95)', filter: 'blur(10px)' },
-                    { opacity: 1, transform: 'translateY(0) scale(1)', filter: 'blur(0)' }
-                ],
-                {
-                    duration: 1500,
-                    delay: 200,
-                    easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
-                    fill: 'both'
-                }
-            );
-        });
     </script>
 <!-- MENÜ DETAY POPUP SCRIPTI -->
 <script>
@@ -1428,7 +2341,7 @@
             const priceParts = (cardEl.dataset.price || '').split(' · ');
             const priceRow = dishModalPrice.parentElement;
             dishModalPrice.replaceChildren();
-            if (priceParts.length === 2 && priceParts[0].startsWith('Im Laden:') && priceParts[1].startsWith('Zum Mitnehmen:')) {
+            if (priceParts.length === 2) {
                 priceRow.classList.remove('items-baseline', 'justify-between');
                 priceRow.classList.add('flex-col', 'items-start', 'gap-1');
                 dishModalPrice.classList.add('block', 'w-full');
@@ -1446,7 +2359,7 @@
             }
             dishModalCalories.textContent = cardEl.dataset.calories || '';
             dishModalDesc.textContent = cardEl.dataset.desc || '';
-            dishModalAllergens.textContent = cardEl.dataset.allergens || 'Keine Angabe';
+            dishModalAllergens.textContent = cardEl.dataset.allergens || getTranslation('Keine Angabe', currentLanguage);
 
             const opt = cardEl.dataset.options;
             if (opt) {
@@ -1458,15 +2371,15 @@
 
             const type = cardEl.dataset.type;
             if (type === 'vegan') {
-                dishModalBadge.textContent = 'Vegan';
+                dishModalBadge.textContent = getTypeLabel('vegan', currentLanguage);
                 dishModalBadge.className = 'text-[10px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded font-semibold uppercase';
                 dishModalBadge.classList.remove('hidden');
             } else if (type === 'vegan-option') {
-                dishModalBadge.textContent = 'Vegan möglich';
+                dishModalBadge.textContent = getTypeLabel('vegan-option', currentLanguage);
                 dishModalBadge.className = 'text-[10px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded font-semibold uppercase';
                 dishModalBadge.classList.remove('hidden');
             } else if (type === 'veggie') {
-                dishModalBadge.textContent = 'Vegetarisch';
+                dishModalBadge.textContent = getTypeLabel('veggie', currentLanguage);
                 dishModalBadge.className = 'text-[10px] bg-amber-500/20 text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded font-semibold uppercase';
                 dishModalBadge.classList.remove('hidden');
             } else {
@@ -1564,5 +2477,65 @@
             if (event.key === "ArrowRight") showNextImage();
         });
     </script>
+
+<script>
+/* Desktop-only proximity effect; no external animation library. */
+(() => {
+    const title = document.getElementById('rw-hero-title');
+    const media = matchMedia('(min-width: 768px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)');
+    const original = title.textContent.trim();
+    let letters = [], frame = 0, pointerX = 0;
+    function reset() {
+        if (frame) cancelAnimationFrame(frame);
+        frame = 0;
+        letters.forEach(letter => letter.firstElementChild.style.removeProperty('transform'));
+    }
+    function setup() {
+        reset();
+        if (!media.matches) {
+            title.textContent = original;
+            title.removeAttribute('aria-label');
+            letters = [];
+            return;
+        }
+        if (letters.length) return;
+        title.setAttribute('aria-label', original);
+        letters = Array.from(original, char => {
+            const outer = document.createElement('span');
+            const inner = document.createElement('span');
+            outer.className = 'rw-letter';
+            outer.setAttribute('aria-hidden', 'true');
+            inner.className = 'rw-letter-inner';
+            inner.textContent = char;
+            outer.append(inner);
+            return outer;
+        });
+        title.replaceChildren(...letters);
+    }
+    function render() {
+        frame = 0;
+        if (!media.matches || !letters.length) return;
+        const radius = title.getBoundingClientRect().width / letters.length * 1.8;
+        letters.forEach(letter => {
+            const rect = letter.getBoundingClientRect();
+            const delta = pointerX - (rect.left + rect.width / 2);
+            const t = Math.max(0, 1 - Math.abs(delta) / radius);
+            const strength = t * t * (3 - 2 * t);
+            const skew = Math.max(-1, Math.min(1, delta / radius)) * strength * 6;
+            letter.firstElementChild.style.transform = `translateY(${-9 * strength}px) scale(${1 + .12 * strength}, ${1 + .24 * strength}) skewX(${skew}deg)`;
+        });
+    }
+    title.addEventListener('pointermove', event => {
+        if (!media.matches || event.pointerType !== 'mouse') return;
+        pointerX = event.clientX;
+        if (!frame) frame = requestAnimationFrame(render);
+    });
+    title.addEventListener('pointerleave', reset);
+    title.addEventListener('pointercancel', reset);
+    window.addEventListener('blur', reset);
+    media.addEventListener('change', setup);
+    setup();
+})();
+</script>
 </body>
 </html>
